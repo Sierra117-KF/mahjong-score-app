@@ -1,0 +1,65 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "ES2022"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    // 厳格な型チェック（以下8つのオプションを自動的に有効化）
+    // noImplicitAny, strictNullChecks, strictFunctionTypes, strictBindCallApply,
+    // strictPropertyInitialization, noImplicitThis, alwaysStrict, useUnknownInCatchVariables
+    "strict": true,
+    // 追加の型チェックオプション
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    // ファイル名の大文字小文字の一貫性を強制
+    "forceConsistentCasingInFileNames": true,
+    // インデックスシグネチャからのプロパティアクセスにブラケット記法を強制
+    // 注意: 大規模な変更が必要。本プロジェクトでは導入保留とするが、今後の検討事項としてコメントアウトしておく。
+    // "noPropertyAccessFromIndexSignature": true,
+    "noEmit": true,
+    "incremental": true,
+    "module": "esnext",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    // パス設定
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    // Next.js用プラグイン
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next/**/*",
+    "tests/**/*",
+    "**/__mocks__/**/*",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "dist/**/*"
+  ]
+}

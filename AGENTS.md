@@ -321,19 +321,19 @@ mahjong-score-app/
 ├── .next/                     # Next.jsビルド出力（Git除外）
 ├── node_modules/              # 依存パッケージ（Git除外）
 ├── src/
-│   └── app/
-│       ├── favicon.ico        # ファビコン
-│       ├── globals.css        # グローバルスタイル（Tailwind設定）
-│       ├── layout.tsx         # ルートレイアウト
-│       ├── page.tsx           # メインページ（トップページ）
-│       ├── components/            # UIコンポーネント
-│       │   ├── ScoreDisplay.tsx   # 点数表示コンポーネント
-│       │   ├── ToggleButton.tsx   # トグルボタンコンポーネント
-│       │   └── NumberInput.tsx    # 数値入力コンポーネント
-│       ├── utils/                     # ユーティリティ関数
-│       │   └── scoreCalculator.ts     # 点数計算ロジック
-│       └── types/                     # TypeScript型定義
-│           └── index.ts               # 型定義ファイル
+│   ├── app/
+│   │   ├── favicon.ico        # ファビコン
+│   │   ├── globals.css        # グローバルスタイル（Tailwind設定）
+│   │   ├── layout.tsx         # ルートレイアウト
+│   │   └── page.tsx           # メインページ（トップページ）
+│   ├── components/            # UIコンポーネント
+│   │   ├── ScoreDisplay.tsx   # 点数表示コンポーネント
+│   │   ├── ToggleButton.tsx   # トグルボタンコンポーネント
+│   │   └── NumberInput.tsx    # 数値入力コンポーネント
+│   ├── utils/                     # ユーティリティ関数
+│   │   └── scoreCalculator.ts     # 点数計算ロジック
+│   └── types/                     # TypeScript型定義
+│           └── index.ts           # 型定義ファイル
 ├── tests/
 │   ├── sample.test.ts         # サンプルテスト
 │   ├── setup.ts               # テストセットアップ
@@ -420,3 +420,27 @@ npm run build
 4. 5飜以上 = 満貫
 5. 本場1の場合 +300点
 ```
+
+---
+
+## 8. コード編集後の検証手順
+
+### 8.1 必須検証コマンド
+
+**アプリケーションコード編集後：**
+```bash
+npm run type-check  # TypeScript型チェック
+npm run lint        # ESLintによるコード品質チェック
+npm run test        # Vitestによる単体テスト実行
+```
+
+**テスト環境修正後：**
+```bash
+npm run type-check:test  # テストコード用TypeScript型チェック
+```
+
+### 8.2 検証フロー
+1. コード編集
+2. 該当する検証コマンドを実行
+3. すべてのチェックが通過することを確認
+4. エラーがある場合は修正して再実行

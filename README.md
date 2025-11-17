@@ -88,18 +88,19 @@ npm run test:coverage
 ```
 mahjong-score-app/
 ├── src/
-│   └── app/
-│       ├── components/          # UIコンポーネント
-│       │   ├── ScoreDisplay.tsx
-│       │   ├── ToggleButton.tsx
-│       │   └── NumberInput.tsx
-│       ├── utils/               # ユーティリティ関数
-│       │   └── scoreCalculator.ts
-│       ├── types/               # TypeScript型定義
-│       │   └── index.ts
-│       ├── globals.css          # グローバルスタイル
-│       ├── layout.tsx           # ルートレイアウト
-│       └── page.tsx             # メインページ
+│   ├── app/
+│   │   ├── favicon.ico        # ファビコン
+│   │   ├── globals.css        # グローバルスタイル（Tailwind設定）
+│   │   ├── layout.tsx         # ルートレイアウト
+│   │   └── page.tsx           # メインページ（トップページ）
+│   ├── components/            # UIコンポーネント
+│   │   ├── ScoreDisplay.tsx   # 点数表示コンポーネント
+│   │   ├── ToggleButton.tsx   # トグルボタンコンポーネント
+│   │   └── NumberInput.tsx    # 数値入力コンポーネント
+│   ├── utils/                     # ユーティリティ関数
+│   │   └── scoreCalculator.ts     # 点数計算ロジック
+│   └── types/                     # TypeScript型定義
+│           └── index.ts           # 型定義ファイル
 ├── tests/                       # テストファイル
 ├── next.config.ts               # Next.js設定
 ├── tailwind.config.ts           # Tailwind CSS設定

@@ -319,7 +319,7 @@ App (page.tsx)
 ```
 mahjong-score-app/
 ├── .next/                     # Next.jsビルド出力（Git除外）
-├── node_modules/              # 依存パッケージ
+├── node_modules/              # 依存パッケージ（Git除外）
 ├── src/
 │   └── app/
 │       ├── favicon.ico        # ファビコン
@@ -340,9 +340,10 @@ mahjong-score-app/
 │   ├── tsconfig.json          # テスト用TypeScript設定
 │   └── tsconfig.tsbuildinfo   # TypeScriptビルド情報
 ├── .gitignore                 # Git除外設定
-├── AGENTS.md                  # プロジェクトガイドライン（このファイル）
+├── AGENTS.md                  # プロジェクトガイドライン
 ├── eslint.config.js           # ESLint設定
-├── next-env.d.ts              # Next.js型定義
+├── LICENSE                    # ライセンス（MIT）
+├── next-env.d.ts              # Next.js型定義（Git除外）
 ├── next.config.ts             # Next.js設定
 ├── package-lock.json          # 依存関係ロックファイル
 ├── package.json               # プロジェクト設定・依存関係
@@ -350,7 +351,7 @@ mahjong-score-app/
 ├── README.md                  # プロジェクト説明
 ├── tsconfig.json              # TypeScript設定
 ├── tsconfig.test.json         # テスト用TypeScript設定
-├── tsconfig.tsbuildinfo       # TypeScriptビルド情報
+├── tsconfig.tsbuildinfo       # TypeScriptビルド情報（Git除外）
 └── vitest.config.ts           # Vitestテスト設定
 
 注意: すべてのコンポーネントは'use client'ディレクティブを使用

@@ -1,0 +1,15 @@
+{
+  // VSCodeがこのフォルダを独立したTSプロジェクトとして認識できるように、
+  // ルートの tsconfig.test.json を継承します
+  "extends": "../tsconfig.test.json",
+  "compilerOptions": {
+    // インクリメンタルや参照プロジェクトは不要
+    "composite": false
+  },
+  // エディタ補完・型解決のために tests 配下を対象に含める
+  "include": [
+    "../tests/**/*.ts",
+    "../tests/**/*.tsx"
+  ],
+  "exclude": []
+}

@@ -338,7 +338,7 @@ mahjong-score-app/
 │   ├── sample.test.ts         # サンプルテスト
 │   ├── setup.ts               # テストセットアップ
 │   ├── tsconfig.json          # テスト用TypeScript設定
-│   └── tsconfig.tsbuildinfo   # TypeScriptビルド情報
+│   └── tsconfig.tsbuildinfo   # TypeScriptビルド情報（Git除外）
 ├── .gitignore                 # Git除外設定
 ├── AGENTS.md                  # プロジェクトガイドライン
 ├── eslint.config.js           # ESLint設定
@@ -367,18 +367,19 @@ mahjong-score-app/
 - ドメイン: Vercelデフォルトドメイン or カスタムドメイン
 
 ### 6.2 ビルド最適化
-```javascript
-// next.config.js
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: 'export',  // 静的エクスポート
+```typescript
+// next.config.ts
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  output: "export",  // 静的エクスポート
   images: {
     unoptimized: true,  // 画像最適化を無効化（使用しないため）
   },
   reactStrictMode: true,
-}
+};
 
-module.exports = nextConfig
+export default nextConfig;
 ```
 
 **ビルドコマンド：**

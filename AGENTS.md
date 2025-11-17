@@ -314,25 +314,44 @@ App (page.tsx)
 └── ResetButton
 ```
 
-### 5.4 ファイル構成
+### 5.4 ディレクトリ構造
+
 ```
-/
-├── app/
-│   ├── layout.tsx         # ルートレイアウト
-│   ├── page.tsx           # メインページ（トップページ）
-│   └── globals.css        # Tailwind設定
-├── components/
-│   ├── ScoreDisplay.tsx   # 点数表示コンポーネント
-│   ├── ToggleButton.tsx   # トグルボタンコンポーネント
-│   └── NumberInput.tsx    # 数値入力コンポーネント
-├── utils/
-│   └── scoreCalculator.ts # 点数計算ロジック
-├── types/
-│   └── index.ts           # TypeScript型定義
-├── next.config.js         # Next.js設定
-├── tailwind.config.ts     # Tailwind設定
-├── tsconfig.json          # TypeScript設定
-└── package.json
+mahjong-score-app/
+├── .next/                     # Next.jsビルド出力（Git除外）
+├── node_modules/              # 依存パッケージ
+├── src/
+│   └── app/
+│       ├── favicon.ico        # ファビコン
+│       ├── globals.css        # グローバルスタイル（Tailwind設定）
+│       ├── layout.tsx         # ルートレイアウト
+│       ├── page.tsx           # メインページ（トップページ）
+│       ├── components/            # UIコンポーネント
+│       │   ├── ScoreDisplay.tsx   # 点数表示コンポーネント
+│       │   ├── ToggleButton.tsx   # トグルボタンコンポーネント
+│       │   └── NumberInput.tsx    # 数値入力コンポーネント
+│       ├── utils/                     # ユーティリティ関数
+│       │   └── scoreCalculator.ts     # 点数計算ロジック
+│       └── types/                     # TypeScript型定義
+│           └── index.ts               # 型定義ファイル
+├── tests/
+│   ├── sample.test.ts         # サンプルテスト
+│   ├── setup.ts               # テストセットアップ
+│   ├── tsconfig.json          # テスト用TypeScript設定
+│   └── tsconfig.tsbuildinfo   # TypeScriptビルド情報
+├── .gitignore                 # Git除外設定
+├── AGENTS.md                  # プロジェクトガイドライン（このファイル）
+├── eslint.config.js           # ESLint設定
+├── next-env.d.ts              # Next.js型定義
+├── next.config.ts             # Next.js設定
+├── package-lock.json          # 依存関係ロックファイル
+├── package.json               # プロジェクト設定・依存関係
+├── postcss.config.mjs         # PostCSS設定
+├── README.md                  # プロジェクト説明
+├── tsconfig.json              # TypeScript設定
+├── tsconfig.test.json         # テスト用TypeScript設定
+├── tsconfig.tsbuildinfo       # TypeScriptビルド情報
+└── vitest.config.ts           # Vitestテスト設定
 
 注意: すべてのコンポーネントは'use client'ディレクティブを使用
 ```

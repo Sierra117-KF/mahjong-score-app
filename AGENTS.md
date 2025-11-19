@@ -319,6 +319,8 @@ App (page.tsx)
 ```
 mahjong-score-app/
 ├── .next/                     # Next.jsビルド出力（Git除外）
+├── .vscode/                   # VSCode設定
+│   └── settings.json          # VSCode設定ファイル
 ├── node_modules/              # 依存パッケージ（Git除外）
 ├── src/
 │   ├── app/
@@ -327,13 +329,13 @@ mahjong-score-app/
 │   │   ├── layout.tsx         # ルートレイアウト
 │   │   └── page.tsx           # メインページ（トップページ）
 │   ├── components/            # UIコンポーネント
+│   │   ├── NumberInput.tsx    # 数値入力コンポーネント
 │   │   ├── ScoreDisplay.tsx   # 点数表示コンポーネント
-│   │   ├── ToggleButton.tsx   # トグルボタンコンポーネント
-│   │   └── NumberInput.tsx    # 数値入力コンポーネント
-│   ├── utils/                     # ユーティリティ関数
-│   │   └── scoreCalculator.ts     # 点数計算ロジック
-│   └── types/                     # TypeScript型定義
-│           └── index.ts           # 型定義ファイル
+│   │   └── ToggleButton.tsx   # トグルボタンコンポーネント
+│   ├── types/                 # TypeScript型定義
+│   │   └── index.ts           # 型定義ファイル
+│   └── utils/                 # ユーティリティ関数
+│       └── scoreCalculator.ts # 点数計算ロジック
 ├── tests/
 │   ├── sample.test.ts         # サンプルテスト
 │   ├── setup.ts               # テストセットアップ

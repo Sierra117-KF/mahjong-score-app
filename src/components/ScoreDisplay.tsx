@@ -21,10 +21,12 @@ export function ScoreDisplay({
   return (
     <div className="text-center py-4">
       {/* 飜符表示 */}
-      <div className="text-lg text-gray-300 mb-1">
-        {han}飜 {fu}符
+      <div className="inline-block bg-primary-bg/50 px-4 py-2 rounded-md mb-2">
+        <span className="text-xl font-bold text-white">
+          {han}飜 {fu}符
+        </span>
         {result.rankName && (
-          <span className="ml-2 text-accent font-medium">
+          <span className="ml-2 text-accent font-bold">
             {result.rankName}
           </span>
         )}
@@ -37,17 +39,17 @@ export function ScoreDisplay({
       </div>
 
       {/* 詳細情報 */}
-      <div className="text-sm text-gray-400 space-y-1">
-        <div>基本点: {formatScore(result.basePoints)}点</div>
+      <div className="space-y-1">
+        <div className="text-sm text-gray-400">基本点: {formatScore(result.basePoints)}点</div>
 
         {winType === 'ron' && result.ronPayment && (
-          <div className="text-gray-300">
+          <div className="text-lg font-medium text-yellow-400">
             放銃者支払い: {formatScore(result.ronPayment)}点
           </div>
         )}
 
         {winType === 'tsumo' && result.tsumoPayment && (
-          <div className="text-gray-300">
+          <div className="text-lg font-medium text-yellow-400">
             {result.tsumoPayment.oyaPayment ? (
               // 子ツモの場合
               <>

@@ -147,14 +147,14 @@ export function NumberInput({
 
       {/* クイックボタン（飜用） */}
       {quickButtons && (
-        <div className="flex gap-1 mt-1">
+        <div className="flex flex-wrap gap-1 mt-1 w-full">
           {quickButtons.map((num) => (
             <button
               key={num}
               type="button"
               onClick={() => { onChange(num); }}
               className={`
-                flex-1 px-2 py-1.5 text-xs font-medium rounded
+                flex-1 min-w-0 px-1.5 py-1.5 text-xs font-medium rounded
                 transition-all duration-200 ease-in-out
                 min-h-[36px]
                 ${

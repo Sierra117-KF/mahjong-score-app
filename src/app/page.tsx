@@ -25,7 +25,9 @@ const WIN_TYPE_OPTIONS = [
 ];
 
 const HAN_QUICK_BUTTONS = [1, 2, 3, 4, 5];
+const HAN_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
 const FU_OPTIONS = [20, 25, 30, 40, 50, 60, 70, 80, 90, 100, 110];
+const HONBA_OPTIONS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 // デフォルト値
 const DEFAULT_VALUES = {
@@ -69,7 +71,7 @@ export default function Home() {
   };
 
   return (
-    <div className="h-dvh flex flex-col p-3 sm:p-4 max-w-md mx-auto">
+    <div className="h-dvh flex flex-col p-3 sm:p-4 max-w-md mx-auto overflow-x-hidden">
       {/* ヘッダー */}
       <header className="text-center py-2">
         <h1 className="text-lg sm:text-xl font-bold text-white">
@@ -117,32 +119,32 @@ export default function Home() {
         </section>
 
         {/* 飜入力 */}
-        <section>
+        <section className="bg-card rounded-lg px-3 py-2">
           <NumberInput
             label="飜（ハン）"
             value={han}
             onChange={setHan}
-            min={1}
-            max={13}
+            selectOptions={HAN_OPTIONS}
             quickButtons={HAN_QUICK_BUTTONS}
           />
         </section>
 
         {/* 符 & 本場 */}
-        <section className="grid grid-cols-2 gap-3">
-          <NumberInput
-            label="符（フ）"
-            value={fu}
-            onChange={setFu}
-            selectOptions={FU_OPTIONS}
-          />
-          <NumberInput
-            label="本場（300点/本）"
-            value={honba}
-            onChange={setHonba}
-            min={0}
-            max={99}
-          />
+        <section className="bg-card rounded-lg px-3 py-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <NumberInput
+              label="符（フ）"
+              value={fu}
+              onChange={setFu}
+              selectOptions={FU_OPTIONS}
+            />
+            <NumberInput
+              label="本場（300点/本）"
+              value={honba}
+              onChange={setHonba}
+              selectOptions={HONBA_OPTIONS}
+            />
+          </div>
         </section>
       </div>
 

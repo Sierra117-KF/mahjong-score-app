@@ -1,5 +1,7 @@
 'use client';
 
+import { useState, useRef, useEffect } from 'react';
+
 interface NumberInputProps {
   label: string;
   value: number;
@@ -19,6 +21,33 @@ export function NumberInput({
   quickButtons,
   selectOptions,
 }: NumberInputProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // 外側クリックで閉じる
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
+
+  // キーボード操作
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      setIsOpen(false);
+    }
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = parseInt(e.target.value, 10);
     if (!isNaN(newValue) && newValue >= min && newValue <= max) {
@@ -28,9 +57,9 @@ export function NumberInput({
     }
   };
 
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newValue = parseInt(e.target.value, 10);
-    onChange(newValue);
+  const handleOptionSelect = (option: number) => {
+    onChange(option);
+    setIsOpen(false);
   };
 
   return (
@@ -38,23 +67,63 @@ export function NumberInput({
       <span className="text-xs text-gray-400">{label}</span>
 
       {selectOptions ? (
-        // セレクトボックス（符用）
-        <select
-          value={value}
-          onChange={handleSelectChange}
-          className="
-            px-3 py-2 text-sm font-medium rounded-md
-            bg-card text-white border-none
-            min-h-[44px] appearance-none cursor-pointer
-            focus:outline-none focus:ring-2 focus:ring-accent
-          "
-        >
-          {selectOptions.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
+        // カスタムドロップダウン（符用）- 上方向に開く
+        <div ref={dropdownRef} className="relative">
+          <button
+            type="button"
+            onClick={() => { setIsOpen(!isOpen); }}
+            onKeyDown={handleKeyDown}
+            aria-haspopup="listbox"
+            aria-expanded={isOpen}
+            className="
+              w-full px-3 py-2 text-sm font-medium rounded-md
+              bg-card text-white
+              min-h-[44px] cursor-pointer text-left
+              focus:outline-none focus:ring-2 focus:ring-accent
+              flex items-center justify-between
+            "
+          >
+            <span>{value}</span>
+            <span className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>
+              ▼
+            </span>
+          </button>
+
+          {isOpen && (
+            <ul
+              role="listbox"
+              className="
+                absolute bottom-full left-0 right-0 mb-1
+                bg-card rounded-md shadow-lg
+                max-h-48 overflow-y-auto
+                z-50 border border-gray-600
+              "
+            >
+              {selectOptions.map((option) => (
+                <li
+                  key={option}
+                  role="option"
+                  tabIndex={0}
+                  aria-selected={value === option}
+                  onClick={() => { handleOptionSelect(option); }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleOptionSelect(option);
+                    }
+                  }}
+                  className={`
+                    px-3 py-2 text-sm cursor-pointer
+                    hover:bg-card-hover
+                    ${value === option ? 'bg-accent text-primary-bg font-medium' : 'text-white'}
+                  `}
+                >
+                  {option}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       ) : (
         // 通常の数値入力（本場用）
         <input

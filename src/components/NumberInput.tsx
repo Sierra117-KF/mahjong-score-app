@@ -3,16 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 
 import { KEYBOARD_KEYS, UI_TEXT } from '@/lib/constants';
-
-interface NumberInputProps {
-  label: string;
-  value: number;
-  onChange: (value: number) => void;
-  min?: number;
-  max?: number;
-  quickButtons?: number[];
-  selectOptions?: number[];
-}
+import type { NumberInputProps } from '@/types';
 
 export function NumberInput({
   label,

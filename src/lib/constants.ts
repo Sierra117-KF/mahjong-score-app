@@ -1,4 +1,4 @@
-import type { GameMode, PlayerType, WinType } from "@/types";
+import type { GameMode, PlayerType, WinType, ScoreCalculationConfig } from "@/types";
 
 export const GAME_MODE_OPTIONS = [
   { value: "four" as const, label: "4人麻雀" },
@@ -57,7 +57,7 @@ export const SCORE_RANKS = {
   MANGAN: "満貫",
 } as const;
 
-export const SCORE_CALCULATION = {
+export const SCORE_CALCULATION: ScoreCalculationConfig = {
   YAKUMAN_POINTS: 8000,
   SANBAIMAN_POINTS: 6000,
   BAIMAN_POINTS: 4000,
@@ -70,6 +70,8 @@ export const SCORE_CALCULATION = {
   KO_RON_MULTIPLIER: 4,
   OYA_TSUMO_MULTIPLIER: 2,
   KO_TSUMO_MULTIPLIER: 1, // 子ツモ時に他の子が支払う基本点の倍率
+  THREE_PLAYER_OYA_TSUMO_MULTIPLIER: 2.5,
+  THREE_PLAYER_KO_TSUMO_MULTIPLIER: 1.5,
   HONBA_RON_POINTS: 300,
   HONBA_TSUMO_POINTS: 100,
   ROUND_UP_UNIT: 100,

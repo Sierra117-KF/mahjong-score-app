@@ -1,5 +1,5 @@
 import { SCORE_CALCULATION, SCORE_RANKS, LOCALE } from '@/lib/constants';
-import type { ScoreInput, ScoreResult, TsumoPayment } from '@/types';
+import type { ScoreInput, ScoreResult, TsumoPayment, GameMode } from '@/types';
 
 /**
  * 100点単位で切り上げる
@@ -72,7 +72,7 @@ function calculateKoRon(basePoints: number, honba: number): number {
 function calculateOyaTsumo(
   basePoints: number,
   honba: number,
-  _gameMode: 'four' | 'three'
+  _gameMode: GameMode
 ): TsumoPayment {
   const koPayment = roundUp100(basePoints * SCORE_CALCULATION.OYA_TSUMO_MULTIPLIER) + honba * SCORE_CALCULATION.HONBA_TSUMO_POINTS;
 
@@ -89,8 +89,12 @@ function calculateKoTsumo(
   honba: number,
   gameMode: 'four' | 'three'
 ): TsumoPayment {
-  const oyaMultiplier = gameMode === 'three' ? 2.5 : SCORE_CALCULATION.OYA_TSUMO_MULTIPLIER;
-  const koMultiplier = gameMode === 'three' ? 1.5 : SCORE_CALCULATION.KO_TSUMO_MULTIPLIER;
+  const oyaMultiplier: number = gameMode === 'three'
+    ? SCORE_CALCULATION.THREE_PLAYER_OYA_TSUMO_MULTIPLIER
+    : SCORE_CALCULATION.OYA_TSUMO_MULTIPLIER;
+  const koMultiplier: number = gameMode === 'three'
+    ? SCORE_CALCULATION.THREE_PLAYER_KO_TSUMO_MULTIPLIER
+    : SCORE_CALCULATION.KO_TSUMO_MULTIPLIER;
 
   const oyaPayment = roundUp100(basePoints * oyaMultiplier) + honba * SCORE_CALCULATION.HONBA_TSUMO_POINTS;
   const koPayment = roundUp100(basePoints * koMultiplier) + honba * SCORE_CALCULATION.HONBA_TSUMO_POINTS;

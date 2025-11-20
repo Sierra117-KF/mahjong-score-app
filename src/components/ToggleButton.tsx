@@ -1,16 +1,6 @@
 "use client";
 
-interface ToggleOption<T extends string> {
-  value: T;
-  label: string;
-}
-
-interface ToggleButtonProps<T extends string> {
-  options: ToggleOption<T>[];
-  value: T;
-  onChange: (value: T) => void;
-  label?: string;
-}
+import type { ToggleButtonProps } from '@/types';
 
 export function ToggleButton<T extends string>({
   options,

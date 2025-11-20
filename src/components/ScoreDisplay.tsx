@@ -1,16 +1,8 @@
 'use client';
 
 import { UI_TEXT } from '@/lib/constants';
-import type { ScoreResult, WinType, GameMode } from '@/types';
+import type { ScoreDisplayProps } from '@/types';
 import { formatScore } from '@/utils/scoreCalculator';
-
-interface ScoreDisplayProps {
-  han: number;
-  fu: number;
-  result: ScoreResult;
-  winType: WinType;
-  gameMode: GameMode;
-}
 
 export function ScoreDisplay({
   han,

@@ -84,6 +84,8 @@ export interface NumberInputProps {
 /** 点数計算設定 */
 export type ScoreCalculationConfig = Readonly<{
   YAKUMAN_POINTS: number;
+  DOUBLE_YAKUMAN_POINTS: number;
+  TRIPLE_YAKUMAN_POINTS: number;
   SANBAIMAN_POINTS: number;
   BAIMAN_POINTS: number;
   HANE_MAN_POINTS: number;

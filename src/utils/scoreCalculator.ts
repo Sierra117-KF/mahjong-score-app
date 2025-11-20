@@ -13,6 +13,8 @@ function roundUp100(value: number): number {
  */
 function getRankName(han: number, fu: number): string {
   // 役満
+  if (han >= 39) return SCORE_RANKS.TRIPLE_YAKUMAN;
+  if (han >= 26) return SCORE_RANKS.DOUBLE_YAKUMAN;
   if (han >= 13) return SCORE_RANKS.YAKUMAN;
   if (han >= 11) return SCORE_RANKS.SANBAIMAN;
   if (han >= 8) return SCORE_RANKS.BAIMAN;
@@ -32,6 +34,8 @@ function getRankName(han: number, fu: number): string {
  */
 function calculateBasePoints(han: number, fu: number): number {
   // 役満
+  if (han >= 39) return SCORE_CALCULATION.TRIPLE_YAKUMAN_POINTS;
+  if (han >= 26) return SCORE_CALCULATION.DOUBLE_YAKUMAN_POINTS;
   if (han >= 13) return SCORE_CALCULATION.YAKUMAN_POINTS;
   // 三倍満
   if (han >= 11) return SCORE_CALCULATION.SANBAIMAN_POINTS;

@@ -16,7 +16,7 @@ export const WIN_TYPE_OPTIONS = [
 ];
 
 export const HAN_QUICK_BUTTONS = [1, 2, 3, 4, 5];
-export const HAN_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+export const HAN_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 26, 39];
 export const FU_OPTIONS = [20, 25, 30, 40, 50, 60, 70, 80, 90, 100, 110];
 export const HONBA_OPTIONS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -50,6 +50,8 @@ export const UI_TEXT = {
 } as const;
 
 export const SCORE_RANKS = {
+  TRIPLE_YAKUMAN: "三倍役満",
+  DOUBLE_YAKUMAN: "倍役満",
   YAKUMAN: "役満",
   SANBAIMAN: "三倍満",
   BAIMAN: "倍満",
@@ -59,6 +61,8 @@ export const SCORE_RANKS = {
 
 export const SCORE_CALCULATION: ScoreCalculationConfig = {
   YAKUMAN_POINTS: 8000,
+  DOUBLE_YAKUMAN_POINTS: 16000,
+  TRIPLE_YAKUMAN_POINTS: 24000,
   SANBAIMAN_POINTS: 6000,
   BAIMAN_POINTS: 4000,
   HANE_MAN_POINTS: 3000,

@@ -45,8 +45,8 @@ export default [
   // TypeScript Strict Settings (優先度：高)
   // Next.jsの設定よりも後に記述することで、厳格なルールで上書きします
   ...tseslint.configs.strictTypeChecked,
-  // スタイルに関するルールが含まれる場合があるため、必要に応じて stylistic も追加検討
-  // ...tseslint.configs.stylisticTypeChecked, 
+  // stylisticも追加（任意）
+  ...tseslint.configs.stylisticTypeChecked, 
 
   // 共通設定 & プロジェクト固有の厳格ルール
   {

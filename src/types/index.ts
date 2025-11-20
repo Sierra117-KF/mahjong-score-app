@@ -77,10 +77,8 @@ export interface NumberInputProps {
   label: string;
   value: number;
   onChange: (value: number) => void;
-  min?: number;
-  max?: number;
   quickButtons?: number[];
-  selectOptions?: number[];
+  selectOptions: number[];
 }
 
 /** 点数計算設定 */

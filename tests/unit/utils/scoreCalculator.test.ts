@@ -150,7 +150,7 @@ describe('calculateScore', () => {
       }));
       expect(result.tsumoPayment?.oyaPayment).toBe(500);
       expect(result.tsumoPayment?.koPayment).toBe(300);
-      expect(result.total).toBe(1100);
+      expect(result.total).toBe(1000);
     });
 
     it('2飜30符 = 500/1,000点', () => {
@@ -172,7 +172,7 @@ describe('calculateScore', () => {
       }));
       expect(result.tsumoPayment?.oyaPayment).toBe(2000);
       expect(result.tsumoPayment?.koPayment).toBe(1000);
-      expect(result.total).toBe(4000);
+      expect(result.total).toBe(3900);
     });
 
     it('4飜30符 = 2,000/3,900点', () => {
@@ -183,33 +183,33 @@ describe('calculateScore', () => {
       }));
       expect(result.tsumoPayment?.oyaPayment).toBe(3900);
       expect(result.tsumoPayment?.koPayment).toBe(2000);
-      expect(result.total).toBe(7900);
+      expect(result.total).toBe(7700);
     });
   });
 
   describe('子ツモ 3人打ち（ko tsumo three players）', () => {
-    it('1飜30符 = 300/500点', () => {
+    it('1飜30符 = 400/600点', () => {
       const result = calculateScore(createInput({
         gameMode: 'three',
         winType: 'tsumo',
         han: 1,
         fu: 30,
       }));
-      expect(result.tsumoPayment?.oyaPayment).toBe(500);
-      expect(result.tsumoPayment?.koPayment).toBe(300);
-      expect(result.total).toBe(800);
+      expect(result.tsumoPayment?.oyaPayment).toBe(600);
+      expect(result.tsumoPayment?.koPayment).toBe(400);
+      expect(result.total).toBe(1000);
     });
 
-    it('2飜30符 = 500/1,000点', () => {
+    it('2飜30符 = 800/1,200点', () => {
       const result = calculateScore(createInput({
         gameMode: 'three',
         winType: 'tsumo',
         han: 2,
         fu: 30,
       }));
-      expect(result.tsumoPayment?.oyaPayment).toBe(1000);
-      expect(result.tsumoPayment?.koPayment).toBe(500);
-      expect(result.total).toBe(1500);
+      expect(result.tsumoPayment?.oyaPayment).toBe(1200);
+      expect(result.tsumoPayment?.koPayment).toBe(800);
+      expect(result.total).toBe(2000);
     });
   });
 
@@ -234,7 +234,7 @@ describe('calculateScore', () => {
         fu: 30,
       }));
       expect(result.tsumoPayment?.koPayment).toBe(1000);
-      expect(result.total).toBe(3000);
+      expect(result.total).toBe(2900);
     });
 
     it('3飜30符 = 2,000オール', () => {
@@ -245,7 +245,7 @@ describe('calculateScore', () => {
         fu: 30,
       }));
       expect(result.tsumoPayment?.koPayment).toBe(2000);
-      expect(result.total).toBe(6000);
+      expect(result.total).toBe(5800);
     });
 
     it('4飜30符 = 3,900オール', () => {
@@ -256,7 +256,7 @@ describe('calculateScore', () => {
         fu: 30,
       }));
       expect(result.tsumoPayment?.koPayment).toBe(3900);
-      expect(result.total).toBe(11700);
+      expect(result.total).toBe(11600);
     });
   });
 
@@ -600,7 +600,7 @@ describe('calculateScore', () => {
         }));
         expect(result.tsumoPayment?.oyaPayment).toBe(600);
         expect(result.tsumoPayment?.koPayment).toBe(400);
-        expect(result.total).toBe(1400);
+        expect(result.total).toBe(1300);
       });
 
       it('1本場で各自+100点（親ツモ4人打ち）', () => {
@@ -624,7 +624,7 @@ describe('calculateScore', () => {
         }));
         expect(result.tsumoPayment?.oyaPayment).toBe(800);
         expect(result.tsumoPayment?.koPayment).toBe(600);
-        expect(result.total).toBe(2000);
+        expect(result.total).toBe(1900);
       });
     });
   });

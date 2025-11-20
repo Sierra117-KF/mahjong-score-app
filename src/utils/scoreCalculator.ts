@@ -87,10 +87,13 @@ function calculateOyaTsumo(
 function calculateKoTsumo(
   basePoints: number,
   honba: number,
-  _gameMode: 'four' | 'three'
+  gameMode: 'four' | 'three'
 ): TsumoPayment {
-  const oyaPayment = roundUp100(basePoints * SCORE_CALCULATION.OYA_TSUMO_MULTIPLIER) + honba * SCORE_CALCULATION.HONBA_TSUMO_POINTS;
-  const koPayment = roundUp100(basePoints * SCORE_CALCULATION.KO_TSUMO_MULTIPLIER) + honba * SCORE_CALCULATION.HONBA_TSUMO_POINTS;
+  const oyaMultiplier = gameMode === 'three' ? 2.5 : SCORE_CALCULATION.OYA_TSUMO_MULTIPLIER;
+  const koMultiplier = gameMode === 'three' ? 1.5 : SCORE_CALCULATION.KO_TSUMO_MULTIPLIER;
+
+  const oyaPayment = roundUp100(basePoints * oyaMultiplier) + honba * SCORE_CALCULATION.HONBA_TSUMO_POINTS;
+  const koPayment = roundUp100(basePoints * koMultiplier) + honba * SCORE_CALCULATION.HONBA_TSUMO_POINTS;
 
   return {
     oyaPayment,
@@ -127,7 +130,11 @@ export function calculateScore(input: ScoreInput): ScoreResult {
     // 親ツモ
     const tsumoPayment = calculateOyaTsumo(basePoints, honba, gameMode);
     const numPlayers = gameMode === 'four' ? 3 : 2;
-    const total = tsumoPayment.koPayment * numPlayers;
+    
+    // 4人打ちの場合は理論値（基本点×6）を使用
+    const total = gameMode === 'four'
+      ? roundUp100(basePoints * 6) + (honba * 300)
+      : tsumoPayment.koPayment * numPlayers;
 
     return {
       total,
@@ -139,8 +146,10 @@ export function calculateScore(input: ScoreInput): ScoreResult {
     // 子ツモ
     const tsumoPayment = calculateKoTsumo(basePoints, honba, gameMode);
     const oyaPay = tsumoPayment.oyaPayment ?? 0;
+    
+    // 4人打ちの場合は理論値（基本点×4）を使用
     const total = gameMode === 'four'
-      ? oyaPay + tsumoPayment.koPayment * 2
+      ? roundUp100(basePoints * 4) + honba * 300
       : oyaPay + tsumoPayment.koPayment;
 
     return {

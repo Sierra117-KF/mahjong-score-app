@@ -32,7 +32,7 @@ export function ToggleButton<T extends string>({
               onChange(option.value);
             }}
             className={`
-              flex-1 px-3 py-2 text-sm font-medium rounded-md
+              flex-1 px-3 py-2 text-base font-medium rounded-md
               transition-all duration-200 ease-in-out
               min-h-[44px] min-w-[44px]
               ${

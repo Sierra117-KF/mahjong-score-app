@@ -115,7 +115,7 @@ export function NumberInput({
                     }
                   }}
                   className={`
-                    px-3 py-2 text-sm cursor-pointer
+                    px-3 py-2 text-base cursor-pointer
                     hover:bg-card-hover
                     ${value === option ? 'bg-accent text-primary-bg font-medium' : 'text-white'}
                   `}
@@ -156,7 +156,7 @@ export function NumberInput({
               type="button"
               onClick={() => { onChange(num); }}
               className={`
-                flex-1 min-w-0 px-2 py-2.5 text-sm font-semibold rounded-md
+                flex-1 min-w-0 px-2 py-2.5 text-base font-semibold rounded-md
                 transition-all duration-200 ease-in-out
                 min-h-[44px]
                 ${

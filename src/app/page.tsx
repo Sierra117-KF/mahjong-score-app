@@ -1,73 +1,36 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-
 import { NumberInput } from '@/components/NumberInput';
 import { ScoreDisplay } from '@/components/ScoreDisplay';
 import { ToggleButton } from '@/components/ToggleButton';
-import type { GameMode, PlayerType, WinType } from '@/types';
-import { calculateScore } from '@/utils/scoreCalculator';
-
-// 定数定義
-const GAME_MODE_OPTIONS = [
-  { value: 'four' as const, label: '4人麻雀' },
-  { value: 'three' as const, label: '3人麻雀' },
-];
-
-const PLAYER_TYPE_OPTIONS = [
-  { value: 'ko' as const, label: '子' },
-  { value: 'oya' as const, label: '親' },
-];
-
-const WIN_TYPE_OPTIONS = [
-  { value: 'ron' as const, label: 'ロン' },
-  { value: 'tsumo' as const, label: 'ツモ' },
-];
-
-const HAN_QUICK_BUTTONS = [1, 2, 3, 4, 5];
-const HAN_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
-const FU_OPTIONS = [20, 25, 30, 40, 50, 60, 70, 80, 90, 100, 110];
-const HONBA_OPTIONS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-// デフォルト値
-const DEFAULT_VALUES = {
-  gameMode: 'four' as GameMode,
-  playerType: 'ko' as PlayerType,
-  winType: 'ron' as WinType,
-  han: 1,
-  fu: 30,
-  honba: 0,
-};
+import { useMahjongGame } from '@/hooks/useMahjongGame';
+import {
+  GAME_MODE_OPTIONS,
+  PLAYER_TYPE_OPTIONS,
+  WIN_TYPE_OPTIONS,
+  HAN_QUICK_BUTTONS,
+  HAN_OPTIONS,
+  FU_OPTIONS,
+  HONBA_OPTIONS,
+} from '@/lib/constants';
 
 export default function Home() {
-  // 状態管理
-  const [gameMode, setGameMode] = useState<GameMode>(DEFAULT_VALUES.gameMode);
-  const [playerType, setPlayerType] = useState<PlayerType>(DEFAULT_VALUES.playerType);
-  const [winType, setWinType] = useState<WinType>(DEFAULT_VALUES.winType);
-  const [han, setHan] = useState(DEFAULT_VALUES.han);
-  const [fu, setFu] = useState(DEFAULT_VALUES.fu);
-  const [honba, setHonba] = useState(DEFAULT_VALUES.honba);
-
-  // 点数計算（メモ化）
-  const result = useMemo(() => {
-    return calculateScore({
-      gameMode,
-      playerType,
-      winType,
-      han,
-      fu,
-      honba,
-    });
-  }, [gameMode, playerType, winType, han, fu, honba]);
-
-  // リセット処理（ゲームモードは保持）
-  const handleReset = () => {
-    setPlayerType(DEFAULT_VALUES.playerType);
-    setWinType(DEFAULT_VALUES.winType);
-    setHan(DEFAULT_VALUES.han);
-    setFu(DEFAULT_VALUES.fu);
-    setHonba(DEFAULT_VALUES.honba);
-  };
+  const {
+    gameMode,
+    setGameMode,
+    playerType,
+    setPlayerType,
+    winType,
+    setWinType,
+    han,
+    setHan,
+    fu,
+    setFu,
+    honba,
+    setHonba,
+    result,
+    handleReset,
+  } = useMahjongGame();
 
   return (
     <div className="h-dvh flex flex-col p-3 sm:p-4 max-w-md mx-auto overflow-x-hidden">

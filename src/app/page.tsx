@@ -80,7 +80,7 @@ export default function Home() {
       </header>
 
       {/* 点数表示エリア */}
-      <section className="bg-card rounded-lg px-3 py-2 mb-3">
+      <section className="bg-card rounded-lg px-3 py-2 mb-3 relative z-10">
         <ScoreDisplay
           han={han}
           fu={fu}
@@ -91,7 +91,7 @@ export default function Home() {
       </section>
 
       {/* 設定エリア */}
-      <div className="flex-1 flex flex-col gap-3 overflow-hidden">
+      <div className="flex-1 flex flex-col gap-3 overflow-visible">
         {/* ゲームモード */}
         <section>
           <ToggleButton
@@ -119,7 +119,7 @@ export default function Home() {
         </section>
 
         {/* 飜入力 */}
-        <section className="bg-card rounded-lg px-3 py-2">
+        <section className="bg-card rounded-lg px-3 py-2 relative z-20">
           <NumberInput
             label="飜（ハン）"
             value={han}

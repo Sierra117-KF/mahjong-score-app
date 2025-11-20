@@ -21,7 +21,7 @@
       "Bash(shutdown:*)",
       "Bash(git:*)",
       "Bash(sudo:*)",
-      "Bash(cd:*)",
+      "Bash(cd)",
       "Bash(curl:*)",
       "Bash(ssh:*)",
       "Bash(mkfs:*)",

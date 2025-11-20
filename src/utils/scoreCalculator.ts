@@ -1,5 +1,5 @@
 import { SCORE_CALCULATION, SCORE_RANKS, LOCALE } from '@/lib/constants';
-import type { ScoreInput, ScoreResult, TsumoPayment, GameMode } from '@/types';
+import type { ScoreInput, ScoreResult, TsumoPayment } from '@/types';
 
 /**
  * 100点単位で切り上げる
@@ -75,8 +75,7 @@ function calculateKoRon(basePoints: number, honba: number): number {
  */
 function calculateOyaTsumo(
   basePoints: number,
-  honba: number,
-  _gameMode: GameMode
+  honba: number
 ): TsumoPayment {
   const koPayment = roundUp100(basePoints * SCORE_CALCULATION.OYA_TSUMO_MULTIPLIER) + honba * SCORE_CALCULATION.HONBA_TSUMO_POINTS;
 
@@ -136,7 +135,7 @@ export function calculateScore(input: ScoreInput): ScoreResult {
   // ツモ和了の場合
   if (playerType === 'oya') {
     // 親ツモ
-    const tsumoPayment = calculateOyaTsumo(basePoints, honba, gameMode);
+    const tsumoPayment = calculateOyaTsumo(basePoints, honba);
     const numPlayers = gameMode === 'four' ? 3 : 2;
     
     // 4人打ちの場合は理論値（基本点×6）を使用

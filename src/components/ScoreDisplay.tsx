@@ -9,7 +9,6 @@ export function ScoreDisplay({
   fu,
   result,
   winType,
-  gameMode: _gameMode,
 }: ScoreDisplayProps) {
   return (
     <div className="text-center py-4">

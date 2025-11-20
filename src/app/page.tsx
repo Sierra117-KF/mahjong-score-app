@@ -49,7 +49,6 @@ export default function Home() {
           fu={fu}
           result={result}
           winType={winType}
-          gameMode={gameMode}
         />
       </section>
 

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { ScoreDisplay } from '@/components/ScoreDisplay';
-import type { ScoreResult, WinType, GameMode } from '@/types';
+import type { ScoreResult, WinType } from '@/types';
 
 describe('ScoreDisplay', () => {
   // ヘルパー関数：デフォルトpropsを生成
@@ -9,7 +9,6 @@ describe('ScoreDisplay', () => {
     fu?: number;
     result?: Partial<ScoreResult>;
     winType?: WinType;
-    gameMode?: GameMode;
   }) => ({
     han: overrides?.han ?? 1,
     fu: overrides?.fu ?? 30,
@@ -20,7 +19,6 @@ describe('ScoreDisplay', () => {
       ...overrides?.result,
     },
     winType: overrides?.winType ?? 'ron',
-    gameMode: overrides?.gameMode ?? 'four',
   });
 
   describe('基本表示', () => {
@@ -184,7 +182,6 @@ describe('ScoreDisplay', () => {
     it('4人打ち・子ツモ時に親と子の支払いが表示される', () => {
       const props = createDefaultProps({
         winType: 'tsumo',
-        gameMode: 'four',
         result: {
           total: 3900,
           basePoints: 960,
@@ -201,7 +198,6 @@ describe('ScoreDisplay', () => {
     it('3人打ち・子ツモ時に親と子の支払いが表示される', () => {
       const props = createDefaultProps({
         winType: 'tsumo',
-        gameMode: 'three',
         result: {
           total: 2900,
           basePoints: 960,
@@ -220,7 +216,6 @@ describe('ScoreDisplay', () => {
     it('4人打ち・親ツモ時に「〇〇点オール」と表示される', () => {
       const props = createDefaultProps({
         winType: 'tsumo',
-        gameMode: 'four',
         result: {
           total: 3000,
           basePoints: 480,
@@ -236,7 +231,6 @@ describe('ScoreDisplay', () => {
     it('3人打ち・親ツモ時に「〇〇点オール」と表示される', () => {
       const props = createDefaultProps({
         winType: 'tsumo',
-        gameMode: 'three',
         result: {
           total: 2000,
           basePoints: 480,
@@ -329,7 +323,6 @@ describe('ScoreDisplay', () => {
         han: 5,
         fu: 30,
         winType: 'tsumo',
-        gameMode: 'four',
         result: {
           total: 8000,
           basePoints: 2000,
@@ -352,7 +345,6 @@ describe('ScoreDisplay', () => {
         han: 13,
         fu: 30,
         winType: 'tsumo',
-        gameMode: 'three',
         result: {
           total: 32000,
           basePoints: 8000,

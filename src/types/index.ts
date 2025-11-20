@@ -69,7 +69,6 @@ export interface ScoreDisplayProps {
   fu: number;
   result: ScoreResult;
   winType: WinType;
-  gameMode: GameMode;
 }
 
 /** 数値入力コンポーネントのProps */

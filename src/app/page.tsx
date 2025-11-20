@@ -12,6 +12,7 @@ import {
   HAN_OPTIONS,
   FU_OPTIONS,
   HONBA_OPTIONS,
+  UI_TEXT,
 } from '@/lib/constants';
 
 export default function Home() {
@@ -37,7 +38,7 @@ export default function Home() {
       {/* ヘッダー */}
       <header className="text-center py-2">
         <h1 className="text-lg sm:text-xl font-bold text-white">
-          麻雀 点数計算
+          {UI_TEXT.HEADER_TITLE}
         </h1>
       </header>
 
@@ -60,7 +61,7 @@ export default function Home() {
             options={GAME_MODE_OPTIONS}
             value={gameMode}
             onChange={setGameMode}
-            label="ゲームモード"
+            label={UI_TEXT.GAME_MODE_LABEL}
           />
         </section>
 
@@ -70,20 +71,20 @@ export default function Home() {
             options={PLAYER_TYPE_OPTIONS}
             value={playerType}
             onChange={setPlayerType}
-            label="プレイヤー"
+            label={UI_TEXT.PLAYER_LABEL}
           />
           <ToggleButton
             options={WIN_TYPE_OPTIONS}
             value={winType}
             onChange={setWinType}
-            label="和了種別"
+            label={UI_TEXT.WIN_TYPE_LABEL}
           />
         </section>
 
         {/* 飜入力 */}
         <section className="bg-card rounded-lg px-3 py-2 relative z-20">
           <NumberInput
-            label="飜（ハン）"
+            label={UI_TEXT.HAN_LABEL}
             value={han}
             onChange={setHan}
             selectOptions={HAN_OPTIONS}
@@ -95,7 +96,7 @@ export default function Home() {
         <section className="grid grid-cols-2 gap-2">
           <div className="bg-card rounded-lg px-3 py-2">
             <NumberInput
-              label="符（フ）"
+              label={UI_TEXT.FU_LABEL}
               value={fu}
               onChange={setFu}
               selectOptions={FU_OPTIONS}
@@ -103,7 +104,7 @@ export default function Home() {
           </div>
           <div className="bg-card rounded-lg px-3 py-2">
             <NumberInput
-              label="本場"
+              label={UI_TEXT.HONBA_LABEL}
               value={honba}
               onChange={setHonba}
               selectOptions={HONBA_OPTIONS}
@@ -125,7 +126,7 @@ export default function Home() {
             min-h-[48px]
           "
         >
-          🔄 リセット
+          {UI_TEXT.RESET_BUTTON}
         </button>
       </footer>
     </div>

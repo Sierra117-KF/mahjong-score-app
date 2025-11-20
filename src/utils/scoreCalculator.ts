@@ -1,10 +1,11 @@
+import { SCORE_CALCULATION, SCORE_RANKS, LOCALE } from '@/lib/constants';
 import type { ScoreInput, ScoreResult, TsumoPayment } from '@/types';
 
 /**
  * 100点単位で切り上げる
  */
 function roundUp100(value: number): number {
-  return Math.ceil(value / 100) * 100;
+  return Math.ceil(value / SCORE_CALCULATION.ROUND_UP_UNIT) * SCORE_CALCULATION.ROUND_UP_UNIT;
 }
 
 /**
@@ -12,15 +13,15 @@ function roundUp100(value: number): number {
  */
 function getRankName(han: number, fu: number): string {
   // 役満
-  if (han >= 13) return '役満';
-  if (han >= 11) return '三倍満';
-  if (han >= 8) return '倍満';
-  if (han >= 6) return '跳満';
+  if (han >= 13) return SCORE_RANKS.YAKUMAN;
+  if (han >= 11) return SCORE_RANKS.SANBAIMAN;
+  if (han >= 8) return SCORE_RANKS.BAIMAN;
+  if (han >= 6) return SCORE_RANKS.HANE_MAN;
 
   // 満貫判定（5飜以上、または4飜30符以上、または3飜70符以上）
-  if (han >= 5) return '満貫';
-  if (han === 4 && fu >= 40) return '満貫';
-  if (han === 3 && fu >= 70) return '満貫';
+  if (han >= SCORE_CALCULATION.MANGAN_HAN_THRESHOLD) return SCORE_RANKS.MANGAN;
+  if (han === 4 && fu >= SCORE_CALCULATION.MANGAN_HAN_4_FU_40) return SCORE_RANKS.MANGAN;
+  if (han === 3 && fu >= SCORE_CALCULATION.MANGAN_HAN_3_FU_70) return SCORE_RANKS.MANGAN;
 
   return '';
 }
@@ -31,38 +32,38 @@ function getRankName(han: number, fu: number): string {
  */
 function calculateBasePoints(han: number, fu: number): number {
   // 役満
-  if (han >= 13) return 8000;
+  if (han >= 13) return SCORE_CALCULATION.YAKUMAN_POINTS;
   // 三倍満
-  if (han >= 11) return 6000;
+  if (han >= 11) return SCORE_CALCULATION.SANBAIMAN_POINTS;
   // 倍満
-  if (han >= 8) return 4000;
+  if (han >= 8) return SCORE_CALCULATION.BAIMAN_POINTS;
   // 跳満
-  if (han >= 6) return 3000;
+  if (han >= 6) return SCORE_CALCULATION.HANE_MAN_POINTS;
 
   // 満貫判定
-  if (han >= 5) return 2000;
-  if (han === 4 && fu >= 40) return 2000;
-  if (han === 3 && fu >= 70) return 2000;
+  if (han >= SCORE_CALCULATION.MANGAN_HAN_THRESHOLD) return SCORE_CALCULATION.MANGAN_POINTS;
+  if (han === 4 && fu >= SCORE_CALCULATION.MANGAN_HAN_4_FU_40) return SCORE_CALCULATION.MANGAN_POINTS;
+  if (han === 3 && fu >= SCORE_CALCULATION.MANGAN_HAN_3_FU_70) return SCORE_CALCULATION.MANGAN_POINTS;
 
   // 通常計算
   const basePoints = fu * Math.pow(2, han + 2);
 
   // 満貫を超えたら満貫に
-  return Math.min(basePoints, 2000);
+  return Math.min(basePoints, SCORE_CALCULATION.MANGAN_POINTS);
 }
 
 /**
  * 親のロン和了時の点数を計算
  */
 function calculateOyaRon(basePoints: number, honba: number): number {
-  return roundUp100(basePoints * 6) + honba * 300;
+  return roundUp100(basePoints * SCORE_CALCULATION.OYA_RON_MULTIPLIER) + honba * SCORE_CALCULATION.HONBA_RON_POINTS;
 }
 
 /**
  * 子のロン和了時の点数を計算
  */
 function calculateKoRon(basePoints: number, honba: number): number {
-  return roundUp100(basePoints * 4) + honba * 300;
+  return roundUp100(basePoints * SCORE_CALCULATION.KO_RON_MULTIPLIER) + honba * SCORE_CALCULATION.HONBA_RON_POINTS;
 }
 
 /**
@@ -73,7 +74,7 @@ function calculateOyaTsumo(
   honba: number,
   _gameMode: 'four' | 'three'
 ): TsumoPayment {
-  const koPayment = roundUp100(basePoints * 2) + honba * 100;
+  const koPayment = roundUp100(basePoints * SCORE_CALCULATION.OYA_TSUMO_MULTIPLIER) + honba * SCORE_CALCULATION.HONBA_TSUMO_POINTS;
 
   return {
     koPayment,
@@ -88,8 +89,8 @@ function calculateKoTsumo(
   honba: number,
   _gameMode: 'four' | 'three'
 ): TsumoPayment {
-  const oyaPayment = roundUp100(basePoints * 2) + honba * 100;
-  const koPayment = roundUp100(basePoints * 1) + honba * 100;
+  const oyaPayment = roundUp100(basePoints * SCORE_CALCULATION.OYA_TSUMO_MULTIPLIER) + honba * SCORE_CALCULATION.HONBA_TSUMO_POINTS;
+  const koPayment = roundUp100(basePoints * SCORE_CALCULATION.KO_TSUMO_MULTIPLIER) + honba * SCORE_CALCULATION.HONBA_TSUMO_POINTS;
 
   return {
     oyaPayment,
@@ -155,5 +156,5 @@ export function calculateScore(input: ScoreInput): ScoreResult {
  * 点数をフォーマットする（カンマ区切り）
  */
 export function formatScore(score: number): string {
-  return score.toLocaleString('ja-JP');
+  return score.toLocaleString(LOCALE.JP);
 }

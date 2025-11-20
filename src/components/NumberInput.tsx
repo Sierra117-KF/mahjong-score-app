@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect } from 'react';
 
+import { KEYBOARD_KEYS, UI_TEXT } from '@/lib/constants';
+
 interface NumberInputProps {
   label: string;
   value: number;
@@ -43,7 +45,7 @@ export function NumberInput({
 
   // キーボード操作
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Escape') {
+    if (e.key === KEYBOARD_KEYS.ESCAPE) {
       setIsOpen(false);
     }
   };
@@ -85,7 +87,7 @@ export function NumberInput({
           >
             <span className="flex-1 text-center">{value}</span>
             <span className={`text-white transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>
-              ▼
+              {UI_TEXT.DROPDOWN_ARROW}
             </span>
           </button>
 
@@ -107,7 +109,7 @@ export function NumberInput({
                   aria-selected={value === option}
                   onClick={() => { handleOptionSelect(option); }}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
+                    if (e.key === KEYBOARD_KEYS.ENTER || e.key === KEYBOARD_KEYS.SPACE) {
                       e.preventDefault();
                       handleOptionSelect(option);
                     }

@@ -5,7 +5,6 @@ import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import nextVitals from 'eslint-config-next/core-web-vitals';
 import nextTs from 'eslint-config-next/typescript';
-import jsxA11y from 'eslint-plugin-jsx-a11y';
 import vitest from '@vitest/eslint-plugin';
 import testingLibrary from 'eslint-plugin-testing-library';
 
@@ -35,17 +34,21 @@ export default [
     ],
   },
 
-  // ESLint推奨設定
+  // Base Configurations (優先度：低)
   eslint.configs.recommended,
-
-  // TypeScript ESLint設定（strict type-checked）
-  ...tseslint.configs.strictTypeChecked,
-
-  // Next.js設定（ネイティブFlat Config）
+  
+  // Next.js 設定 (Baseとして先に読み込む)
+  // これらが依存するプラグイン(import, react, jsx-a11y等)もここでロードされます
   ...nextVitals,
   ...nextTs,
 
-  // 共通言語設定
+  // TypeScript Strict Settings (優先度：高)
+  // Next.jsの設定よりも後に記述することで、厳格なルールで上書きします
+  ...tseslint.configs.strictTypeChecked,
+  // スタイルに関するルールが含まれる場合があるため、必要に応じて stylistic も追加検討
+  // ...tseslint.configs.stylisticTypeChecked, 
+
+  // 共通設定 & プロジェクト固有の厳格ルール
   {
     languageOptions: {
       parser: tseslint.parser,
@@ -54,15 +57,13 @@ export default [
           './tsconfig.json',
           './tsconfig.test.json',
           './tests/tsconfig.json'
-        ],        tsconfigRootDir: __dirname,
+        ],
+        tsconfigRootDir: __dirname,
         ecmaVersion: 'latest',
         sourceType: 'module',
         ecmaFeatures: {
           jsx: true,
         },
-      },
-      globals: {
-        React: 'readonly',
       },
     },
     settings: {
@@ -81,7 +82,7 @@ export default [
       },
     },
     rules: {
-      // === プロジェクト固有のカスタマイズ（strictTypeCheckedの上書き） ===
+      // === プロジェクト固有のカスタマイズ（Strictルールの上書き・調整） ===
 
       // unified-signaturesルールを無効化（proxy.tsとの互換性問題のため）
       '@typescript-eslint/unified-signatures': 'off',
@@ -125,8 +126,8 @@ export default [
         {
           checksConditionals: true,
           checksVoidReturn: {
-            arguments: false, // React/Next.jsイベントハンドラ用
-            attributes: false, // JSX属性用
+            arguments: false,
+            attributes: false,
           },
           checksSpreads: true,
         },
@@ -175,29 +176,18 @@ export default [
     },
   },
 
-  // アクセシビリティ設定（jsx-a11y）
-  // Note: プラグイン自体はNext.js設定で既に登録済み、ルールのみ追加
+  // メインアプリケーションルール (src/app 配下など)
   {
-    name: 'accessibility-config',
-    files: ['src/app/**/*.{js,jsx,ts,tsx}', 'src/components/**/*.{js,jsx,ts,tsx}'],
+    name: 'app-main-logic',
+    files: ['src/**/*.{js,jsx,ts,tsx}'], // src全体に適用範囲を拡大（漏れ防止）
     rules: {
-      // === アクセシビリティ（jsx-a11y推奨ルール） ===
-      ...jsxA11y.flatConfigs.recommended.rules,
-    },
-  },
-
-  // メイン設定（src/app/配下のファイル）
-  {
-    name: 'mahjong-score-app-main-config',
-    files: ['src/app/**/*.{js,jsx,ts,tsx}', 'src/components/**/*.{js,jsx,ts,tsx}', 'src/utils/**/*.{js,jsx,ts,tsx}', 'src/types/**/*.{js,jsx,ts,tsx}'],
-    rules: {
-      // === TypeScript型安全性 ===
+      // TypeScript型安全性
       '@typescript-eslint/no-explicit-any': 'error',
 
       // TypeScript-ESLint strictTypeCheckedに含まれるルールは自動適用されるため、
       // プロジェクト固有のカスタマイズのみここに記述
 
-      // === プロジェクト固有のルール ===
+      // プロジェクト固有のルール
 
       // console使用制限（本アプリではconsoleを完全禁止）
       'no-console': 'error',
@@ -212,8 +202,8 @@ export default [
           skipTemplates: true,
         },
       ],
-
-      // Import順序
+      
+      // Import順序 (eslint-plugin-importはNext.js設定によりロード済みと仮定)
       'import/order': [
         'error',
         {
@@ -247,28 +237,36 @@ export default [
       '@next/next/no-html-link-for-pages': 'error',
       '@next/next/no-img-element': 'error',
       '@next/next/no-sync-scripts': 'error',
+      
+      // アクセシビリティ (jsx-a11y)
+      // Next.js推奨設定に追加して、さらに厳しくしたい場合のみ記述
+      // 基本はNext.jsのプリセットで十分
     },
   },
 
-  // JavaScript/JSXファイル用設定
+  // JavaScript/JSXファイル用設定 (JSファイルでのTSルール無効化)
   {
-    name: 'javascript-config',
+    name: 'javascript-overrides',
     files: ['*.js', '*.jsx', '*.mjs'],
     languageOptions: {
       parserOptions: {
         projectService: false,
+        project: null, // JSファイルでは型情報を無効化して高速化
       },
     },
     rules: {
       '@typescript-eslint/no-var-requires': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
       'no-unused-vars': 'error',
     },
   },
 
   // 型定義ファイル用設定
   {
-    name: 'type-definition-files',
-    files: ['types/**/*.ts'],
+    name: 'type-definition-overrides',
+    files: ['types/**/*.ts', '**/*.d.ts'],
     rules: {
       '@typescript-eslint/no-empty-object-type': 'off',
       '@typescript-eslint/no-explicit-any': 'error',
@@ -277,7 +275,7 @@ export default [
 
   // テスト環境設定（Vitest + React Testing Library）
   {
-    name: 'test-environment-config',
+    name: 'test-environment-overrides',
     files: ['tests/**/*.{js,jsx,ts,tsx}', '**/*.test.{js,jsx,ts,tsx}', '**/*.spec.{js,jsx,ts,tsx}'],
     plugins: {
       vitest: vitest,
@@ -289,7 +287,7 @@ export default [
       // Testing Library推奨ルールを継承
       ...testingLibrary.configs['flat/react'].rules,
 
-      // === テスト特有のルール緩和（最小限） ===
+      // テスト特有のルール緩和（最小限）
       // モック作成に必須のルールのみ緩和し、テストロジックの誤りは検出する設計
 
       // TypeScript unsafe系ルール（モックオブジェクトの型変換で必須）

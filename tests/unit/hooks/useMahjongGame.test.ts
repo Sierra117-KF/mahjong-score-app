@@ -486,11 +486,11 @@ describe('useMahjongGame', () => {
       expect(result.current.result).toEqual(expectedResult);
     });
 
-    it('honba=99（最大本場数）の場合、resultが正しく計算されるべき', () => {
+    it('honba=20（最大本場数）の場合、resultが正しく計算されるべき', () => {
       const { result } = renderHook(() => useMahjongGame());
 
       act(() => {
-        result.current.setHonba(99);
+        result.current.setHonba(20);
       });
 
       const expectedResult = calculateScore({
@@ -499,7 +499,7 @@ describe('useMahjongGame', () => {
         winType: 'ron',
         han: 1,
         fu: 30,
-        honba: 99,
+        honba: 20,
       });
 
       expect(result.current.result).toEqual(expectedResult);

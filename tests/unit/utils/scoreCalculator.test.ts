@@ -698,13 +698,13 @@ describe('calculateScore', () => {
         expect(result.total).toBe(4000);
       });
 
-      it('99本場（子ロン）= +29,700点', () => {
+      it('20本場（子ロン）= +6,000点', () => {
         const result = calculateScore(createInput({
           han: 1,
           fu: 30,
-          honba: 99,
+          honba: 20,
         }));
-        expect(result.total).toBe(30700);
+        expect(result.total).toBe(7000);
       });
     });
 

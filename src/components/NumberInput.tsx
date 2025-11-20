@@ -63,8 +63,8 @@ export function NumberInput({
   };
 
   return (
-    <div className="flex flex-col gap-1">
-      <span className="text-xs text-gray-400">{label}</span>
+    <div className="flex flex-col gap-1.5">
+      <span className="text-sm font-medium text-gray-300 text-center">{label}</span>
 
       {selectOptions ? (
         // カスタムドロップダウン（符用）- 上方向に開く
@@ -76,15 +76,15 @@ export function NumberInput({
             aria-haspopup="listbox"
             aria-expanded={isOpen}
             className="
-              w-full px-3 py-2 text-sm font-medium rounded-md
-              bg-card text-white
-              min-h-[44px] cursor-pointer text-left
+              w-full px-3 py-2 text-lg font-medium rounded-md
+              bg-primary-bg text-yellow-400 border border-white/10
+              min-h-[44px] cursor-pointer
               focus:outline-none focus:ring-2 focus:ring-accent
-              flex items-center justify-between
+              flex items-center
             "
           >
-            <span>{value}</span>
-            <span className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>
+            <span className="flex-1 text-center">{value}</span>
+            <span className={`text-white transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>
               ▼
             </span>
           </button>
@@ -134,9 +134,9 @@ export function NumberInput({
           min={min}
           max={max}
           className="
-            px-3 py-2 text-sm font-medium rounded-md
-            bg-card text-white border-none
-            min-h-[44px] w-full
+            px-3 py-2 text-lg font-medium rounded-md
+            bg-primary-bg text-yellow-400 border border-white/10
+            min-h-[44px] w-full text-center
             focus:outline-none focus:ring-2 focus:ring-accent
             [appearance:textfield]
             [&::-webkit-outer-spin-button]:appearance-none
@@ -147,16 +147,16 @@ export function NumberInput({
 
       {/* クイックボタン（飜用） */}
       {quickButtons && (
-        <div className="flex flex-wrap gap-1 mt-1 w-full">
+        <div className="flex flex-wrap gap-1.5 mt-2 w-full">
           {quickButtons.map((num) => (
             <button
               key={num}
               type="button"
               onClick={() => { onChange(num); }}
               className={`
-                flex-1 min-w-0 px-1.5 py-1.5 text-xs font-medium rounded
+                flex-1 min-w-0 px-2 py-2.5 text-sm font-semibold rounded-md
                 transition-all duration-200 ease-in-out
-                min-h-[36px]
+                min-h-[44px]
                 ${
                   value === num
                     ? 'bg-accent text-primary-bg'

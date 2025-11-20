@@ -60,9 +60,8 @@ export default function Home() {
     });
   }, [gameMode, playerType, winType, han, fu, honba]);
 
-  // リセット処理
+  // リセット処理（ゲームモードは保持）
   const handleReset = () => {
-    setGameMode(DEFAULT_VALUES.gameMode);
     setPlayerType(DEFAULT_VALUES.playerType);
     setWinType(DEFAULT_VALUES.winType);
     setHan(DEFAULT_VALUES.han);
@@ -130,16 +129,18 @@ export default function Home() {
         </section>
 
         {/* 符 & 本場 */}
-        <section className="bg-card rounded-lg px-3 py-2">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <section className="grid grid-cols-2 gap-2">
+          <div className="bg-card rounded-lg px-3 py-2">
             <NumberInput
               label="符（フ）"
               value={fu}
               onChange={setFu}
               selectOptions={FU_OPTIONS}
             />
+          </div>
+          <div className="bg-card rounded-lg px-3 py-2">
             <NumberInput
-              label="本場（300点/本）"
+              label="本場"
               value={honba}
               onChange={setHonba}
               selectOptions={HONBA_OPTIONS}

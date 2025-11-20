@@ -9,7 +9,7 @@ export function ScoreDisplay({
   fu,
   result,
   winType,
-  gameMode,
+  gameMode: _gameMode,
 }: ScoreDisplayProps) {
   return (
     <div className="text-center py-4">
@@ -44,19 +44,10 @@ export function ScoreDisplay({
         {winType === 'tsumo' && result.tsumoPayment && (
           <div className="text-lg font-medium text-yellow-400">
             {result.tsumoPayment.oyaPayment ? (
-              // 子ツモの場合
+              // 子ツモの場合（3人/4人共通表示）
               <>
-                {gameMode === 'four' ? (
-                  <>
-                    {UI_TEXT.KO_LABEL}: {formatScore(result.tsumoPayment.koPayment)}{UI_TEXT.POINT_UNIT} /
-                    {UI_TEXT.OYA_LABEL}: {formatScore(result.tsumoPayment.oyaPayment)}{UI_TEXT.POINT_UNIT}
-                  </>
-                ) : (
-                  <>
-                    {UI_TEXT.KO_LABEL}: {formatScore(result.tsumoPayment.koPayment)}{UI_TEXT.POINT_UNIT} /
-                    {UI_TEXT.OYA_LABEL}: {formatScore(result.tsumoPayment.oyaPayment)}{UI_TEXT.POINT_UNIT}
-                  </>
-                )}
+                {UI_TEXT.KO_LABEL}: {formatScore(result.tsumoPayment.koPayment)}{UI_TEXT.POINT_UNIT} /
+                {UI_TEXT.OYA_LABEL}: {formatScore(result.tsumoPayment.oyaPayment)}{UI_TEXT.POINT_UNIT}
               </>
             ) : (
               // 親ツモの場合

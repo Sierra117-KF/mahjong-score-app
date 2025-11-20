@@ -18,7 +18,7 @@ function getRankName(han: number, fu: number): string {
   if (han >= 8) return SCORE_RANKS.BAIMAN;
   if (han >= 6) return SCORE_RANKS.HANE_MAN;
 
-  // 満貫判定（5飜以上、または4飜30符以上、または3飜70符以上）
+  // 満貫判定（5飜以上、または4飜40符以上、または3飜70符以上）
   if (han >= SCORE_CALCULATION.MANGAN_HAN_THRESHOLD) return SCORE_RANKS.MANGAN;
   if (han === 4 && fu >= SCORE_CALCULATION.MANGAN_HAN_4_FU_40) return SCORE_RANKS.MANGAN;
   if (han === 3 && fu >= SCORE_CALCULATION.MANGAN_HAN_3_FU_70) return SCORE_RANKS.MANGAN;

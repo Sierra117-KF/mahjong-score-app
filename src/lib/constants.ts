@@ -69,7 +69,7 @@ export const SCORE_CALCULATION = {
   OYA_RON_MULTIPLIER: 6,
   KO_RON_MULTIPLIER: 4,
   OYA_TSUMO_MULTIPLIER: 2,
-  KO_TSUMO_MULTIPLIER: 1, // Base for ko payment in oya tsumo is 2*base, but here it refers to ko tsumo -> ko payment
+  KO_TSUMO_MULTIPLIER: 1, // 子ツモ時に他の子が支払う基本点の倍率
   HONBA_RON_POINTS: 300,
   HONBA_TSUMO_POINTS: 100,
   ROUND_UP_UNIT: 100,

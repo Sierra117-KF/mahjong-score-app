@@ -87,23 +87,43 @@ npm run test:coverage
 
 ```
 mahjong-score-app/
+├── .next/                     # Next.jsビルド出力（Git除外）
+├── .vscode/                   # VSCode設定
+│   └── settings.json          # VSCode設定ファイル
+├── node_modules/              # 依存パッケージ（Git除外）
 ├── src/
-│   └── app/
-│       ├── components/          # UIコンポーネント
-│       │   ├── ScoreDisplay.tsx
-│       │   ├── ToggleButton.tsx
-│       │   └── NumberInput.tsx
-│       ├── utils/               # ユーティリティ関数
-│       │   └── scoreCalculator.ts
-│       ├── types/               # TypeScript型定義
-│       │   └── index.ts
-│       ├── globals.css          # グローバルスタイル
-│       ├── layout.tsx           # ルートレイアウト
-│       └── page.tsx             # メインページ
-├── tests/                       # テストファイル
-├── next.config.ts               # Next.js設定
-├── tailwind.config.ts           # Tailwind CSS設定
-└── tsconfig.json                # TypeScript設定
+│   ├── app/
+│   │   ├── favicon.ico        # ファビコン
+│   │   ├── globals.css        # グローバルスタイル（Tailwind設定）
+│   │   ├── layout.tsx         # ルートレイアウト
+│   │   └── page.tsx           # メインページ（トップページ）
+│   ├── components/            # UIコンポーネント
+│   │   ├── NumberInput.tsx    # 数値入力コンポーネント
+│   │   ├── ScoreDisplay.tsx   # 点数表示コンポーネント
+│   │   └── ToggleButton.tsx   # トグルボタンコンポーネント
+│   ├── types/                 # TypeScript型定義
+│   │   └── index.ts           # 型定義ファイル
+│   └── utils/                 # ユーティリティ関数
+│       └── scoreCalculator.ts # 点数計算ロジック
+├── tests/
+│   ├── sample.test.ts         # サンプルテスト
+│   ├── setup.ts               # テストセットアップ
+│   ├── tsconfig.json          # テスト用TypeScript設定
+│   └── tsconfig.tsbuildinfo   # TypeScriptビルド情報（Git除外）
+├── .gitignore                 # Git除外設定
+├── AGENTS.md                  # プロジェクトガイドライン
+├── eslint.config.js           # ESLint設定
+├── LICENSE                    # ライセンス（MIT）
+├── next-env.d.ts              # Next.js型定義（Git除外）
+├── next.config.ts             # Next.js設定
+├── package-lock.json          # 依存関係ロックファイル
+├── package.json               # プロジェクト設定・依存関係
+├── postcss.config.mjs         # PostCSS設定
+├── README.md                  # プロジェクト説明
+├── tsconfig.json              # TypeScript設定
+├── tsconfig.test.json         # テスト用TypeScript設定
+├── tsconfig.tsbuildinfo       # TypeScriptビルド情報（Git除外）
+└── vitest.config.ts           # Vitestテスト設定
 ```
 
 ## デプロイ

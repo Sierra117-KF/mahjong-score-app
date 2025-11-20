@@ -1,65 +1,133 @@
-import Image from "next/image";
+'use client';
+
+import { NumberInput } from '@/components/NumberInput';
+import { ScoreDisplay } from '@/components/ScoreDisplay';
+import { ToggleButton } from '@/components/ToggleButton';
+import { useMahjongGame } from '@/hooks/useMahjongGame';
+import {
+  GAME_MODE_OPTIONS,
+  PLAYER_TYPE_OPTIONS,
+  WIN_TYPE_OPTIONS,
+  HAN_QUICK_BUTTONS,
+  HAN_OPTIONS,
+  FU_OPTIONS,
+  HONBA_OPTIONS,
+  UI_TEXT,
+} from '@/lib/constants';
 
 export default function Home() {
+  const {
+    gameMode,
+    setGameMode,
+    playerType,
+    setPlayerType,
+    winType,
+    setWinType,
+    han,
+    setHan,
+    fu,
+    setFu,
+    honba,
+    setHonba,
+    result,
+    handleReset,
+  } = useMahjongGame();
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="h-dvh flex flex-col p-3 sm:p-4 max-w-md mx-auto overflow-x-hidden">
+      {/* ヘッダー */}
+      <header className="text-center py-2">
+        <h1 className="text-lg sm:text-xl font-bold text-white">
+          {UI_TEXT.HEADER_TITLE}
+        </h1>
+      </header>
+
+      {/* 点数表示エリア */}
+      <section className="bg-card rounded-lg px-3 py-2 mb-3 relative z-10">
+        <ScoreDisplay
+          han={han}
+          fu={fu}
+          result={result}
+          winType={winType}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+      </section>
+
+      {/* 設定エリア */}
+      <div className="flex-1 flex flex-col gap-3 overflow-visible">
+        {/* ゲームモード */}
+        <section>
+          <ToggleButton
+            options={GAME_MODE_OPTIONS}
+            value={gameMode}
+            onChange={setGameMode}
+            label={UI_TEXT.GAME_MODE_LABEL}
+          />
+        </section>
+
+        {/* プレイヤー & 和了種別 */}
+        <section className="grid grid-cols-2 gap-3">
+          <ToggleButton
+            options={PLAYER_TYPE_OPTIONS}
+            value={playerType}
+            onChange={setPlayerType}
+            label={UI_TEXT.PLAYER_LABEL}
+          />
+          <ToggleButton
+            options={WIN_TYPE_OPTIONS}
+            value={winType}
+            onChange={setWinType}
+            label={UI_TEXT.WIN_TYPE_LABEL}
+          />
+        </section>
+
+        {/* 飜入力 */}
+        <section className="bg-card rounded-lg px-3 py-2 relative z-20">
+          <NumberInput
+            label={UI_TEXT.HAN_LABEL}
+            value={han}
+            onChange={setHan}
+            selectOptions={HAN_OPTIONS}
+            quickButtons={HAN_QUICK_BUTTONS}
+          />
+        </section>
+
+        {/* 符 & 本場 */}
+        <section className="grid grid-cols-2 gap-2">
+          <div className="bg-card rounded-lg px-3 py-2">
+            <NumberInput
+              label={UI_TEXT.FU_LABEL}
+              value={fu}
+              onChange={setFu}
+              selectOptions={FU_OPTIONS}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+          </div>
+          <div className="bg-card rounded-lg px-3 py-2">
+            <NumberInput
+              label={UI_TEXT.HONBA_LABEL}
+              value={honba}
+              onChange={setHonba}
+              selectOptions={HONBA_OPTIONS}
+            />
+          </div>
+        </section>
+      </div>
+
+      {/* リセットボタン */}
+      <footer className="pt-3">
+        <button
+          type="button"
+          onClick={handleReset}
+          className="
+            w-full py-3 rounded-lg
+            bg-card text-gray-300 font-medium
+            hover:bg-card-hover active:scale-[0.98]
+            transition-all duration-200
+            min-h-[48px]
+          "
+        >
+          {UI_TEXT.RESET_BUTTON}
+        </button>
+      </footer>
     </div>
   );
 }

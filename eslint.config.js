@@ -82,9 +82,9 @@ export default [
       },
     },
     rules: {
-      // === プロジェクト固有のカスタマイズ（Strictルールの上書き・調整） ===
+      // プロジェクト固有のカスタマイズ（Strictルールの上書き・調整）
 
-      // 統合できるオーバーロードを検出（proxy.ts導入時には無効化の是非を確認）
+      // 統合できるオーバーロードを検出
       '@typescript-eslint/unified-signatures': 'error',
 
       // TypeScript指令コメントの厳格な制限（説明必須化）
@@ -195,8 +195,6 @@ export default [
 
       // TypeScript-ESLint strictTypeCheckedに含まれるルールは自動適用されるため、
       // プロジェクト固有のカスタマイズのみここに記述
-
-      // プロジェクト固有のルール
 
       // console使用制限（本アプリではconsoleを完全禁止）
       'no-console': 'error',

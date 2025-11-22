@@ -84,8 +84,8 @@ export default [
     rules: {
       // === プロジェクト固有のカスタマイズ（Strictルールの上書き・調整） ===
 
-      // unified-signaturesルールを無効化（proxy.tsとの互換性問題のため）
-      '@typescript-eslint/unified-signatures': 'off',
+      // 統合できるオーバーロードを検出（proxy.ts導入時には無効化の是非を確認）
+      '@typescript-eslint/unified-signatures': 'error',
 
       // TypeScript指令コメントの厳格な制限（説明必須化）
       '@typescript-eslint/ban-ts-comment': [
@@ -104,6 +104,15 @@ export default [
         'error',
         {
           prefer: 'type-imports',
+        },
+      ],
+
+      // 型アサーションの一貫性（オブジェクトリテラルへのアサーション禁止）
+      '@typescript-eslint/consistent-type-assertions': [
+        'error',
+        {
+          assertionStyle: 'as',
+          objectLiteralTypeAssertions: 'never',
         },
       ],
 
@@ -276,7 +285,7 @@ export default [
   // テスト環境設定（Vitest + React Testing Library）
   {
     name: 'test-environment-overrides',
-    files: ['tests/**/*.{js,jsx,ts,tsx}', '**/*.test.{js,jsx,ts,tsx}', '**/*.spec.{js,jsx,ts,tsx}'],
+    files: ['src/types/**/*.ts', 'tests/types.d.ts', '**/*.d.ts'],
     plugins: {
       vitest: vitest,
       'testing-library': testingLibrary,

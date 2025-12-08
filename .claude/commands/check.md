@@ -12,11 +12,11 @@ allowed-tools:
 
 ## 1. Lintチェック
 
-!npm run lint
+!pnpm lint
 
 ## 2. Type Check
 
-!npm run type-check
+!pnpm type-check
 
 # エラーが検出された場合の対処
 

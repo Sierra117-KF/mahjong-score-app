@@ -1,11 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm run lint)",
-      "Bash(npm run test:*)",
-      "Bash(npm run type-check:*)",
-      "Bash(npm run type-check:test)",
-      "Bash(npm run build)",
+      "Bash(pnpm lint)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm type-check:*)",
+      "Bash(pnpm type-check:test)",
+      "Bash(pnpm build)",
       "Bash(npx eslint:*)",
       "Bash(mkdir:*)",
       "mcp__ide__getDiagnostics"
@@ -34,7 +34,7 @@
       "Bash(apt:*)",
       "Bash(yum:*)",
       "Bash(mv:*)",
-      "Bash(npm run dev)",
+      "Bash(pnpm dev)",
       "Read(.env)",
       "Read(.env.local)",
       "Task",
@@ -42,5 +42,5 @@
       "BashOutput"
     ]
   },
-   "outputStyle": "Explanatory"
+  "outputStyle": "Explanatory"
 }

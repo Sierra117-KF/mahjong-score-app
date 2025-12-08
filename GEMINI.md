@@ -250,6 +250,7 @@ roundUp100(value) = 100点単位で切り上げ
 ```
 
 **例**:
+
 - 1飜30符（基本点480）子ロン: roundUp100(480 × 4) + 0 = 2,000点
 - 3飜60符（基本点1,920）子ロン: roundUp100(1,920 × 4) + 0 = 7,700点
 
@@ -282,6 +283,7 @@ roundUp100(value) = 100点単位で切り上げ
 ```
 
 **例**:
+
 - 2飜30符（基本点960）親ツモ 4人打ち: 各子 roundUp100(960 × 2) = 2,000点 → 合計6,000点（2,000オール）
 - 1飜30符（基本点480）子ツモ 3人打ち: 親 roundUp100(480 × 2.5) = 1,300点、子 roundUp100(480 × 1.5) = 800点 → 合計2,100点
 
@@ -426,7 +428,7 @@ export default nextConfig;
 
 ```bash
 # Next.js 16ではTurbopackがデフォルト
-npm run build
+pnpm build
 
 # 出力先: /out ディレクトリに静的ファイル生成
 ```
@@ -488,15 +490,15 @@ npm run build
 **アプリケーションコード編集後：**
 
 ```bash
-npm run type-check  # TypeScript型チェック
-npm run lint        # ESLintによるコード品質チェック
-npm run test        # Vitestによる単体テスト実行
+pnpm type-check  # TypeScript型チェック
+pnpm lint        # ESLintによるコード品質チェック
+pnpm test        # Vitestによる単体テスト実行
 ```
 
 **テスト環境修正後：**
 
 ```bash
-npm run type-check:test  # テストコード用TypeScript型チェック
+pnpm type-check:test  # テストコード用TypeScript型チェック
 ```
 
 ### 8.2 検証フロー
@@ -531,8 +533,8 @@ npm run type-check:test  # テストコード用TypeScript型チェック
 ```powershell
 # ❌ 禁止: cdコマンドを使用
 cd src
-npm run build
+pnpm build
 
 # ✅ 推奨: 相対パスを使用
-npm run build
+pnpm build
 ```

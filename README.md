@@ -14,11 +14,13 @@
 ## 主な機能
 
 ### 点数計算
+
 - 飜数（1〜13飜）と符数から正確な点数を自動計算
 - 満貫・跳満・倍満・三倍満・役満に対応
 - 本場数による加算も自動計算
 
 ### 設定項目
+
 - **ゲームモード**: 4人麻雀 / 3人麻雀
 - **プレイヤー**: 親 / 子
 - **和了種別**: ロン / ツモ
@@ -27,6 +29,7 @@
 - **本場数**: 0〜20本場
 
 ### 表示内容
+
 - 計算結果の点数（大きく見やすい表示）
 - 基本点の詳細
 - 支払い内訳（ロン時の放銃者、ツモ時の各プレイヤー）
@@ -34,8 +37,9 @@
 ## 開発環境のセットアップ
 
 ### 必要な環境
+
 - Node.js 20.9以上
-- npm または yarn
+- pnpm
 
 ### インストール
 
@@ -45,13 +49,13 @@ git clone https://github.com/Sierra117-KF/mahjong-score-app.git
 cd mahjong-score-app
 
 # 依存関係をインストール
-npm install
+pnpm install
 ```
 
 ### 開発サーバーの起動
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 ブラウザで [http://localhost:3000](http://localhost:3000) を開いてください。
@@ -60,7 +64,7 @@ npm run dev
 
 ```bash
 # 本番用ビルド（静的エクスポート）
-npm run build
+pnpm build
 
 ```
 
@@ -68,19 +72,19 @@ npm run build
 
 ```bash
 # 型チェック
-npm run type-check
+pnpm type-check
 
 # Lint
-npm run lint
+pnpm lint
 
 # テスト実行
-npm test
+pnpm  test
 
 # テスト（ウォッチモード）
-npm run test:watch
+pnpm test:watch
 
 # テストカバレッジ
-npm run test:coverage
+pnpm test:coverage
 ```
 
 ## プロジェクト構成
@@ -144,14 +148,16 @@ mahjong-score-app/
 
 ```bash
 # ビルド
-npm run build
+pnpm build
 
 ```
 
 ## 技術的な特徴
 
 ### プライバシー重視
+
 このアプリケーションは**データを一切保存しません**：
+
 - データベース不使用
 - LocalStorage不使用
 - Cookie不使用

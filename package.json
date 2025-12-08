@@ -43,5 +43,17 @@
     "typescript": "^5",
     "typescript-eslint": "^8.46.4",
     "vitest": "^4.0.9"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp",
+      "supabase",
+      "unrs-resolver"
+    ],
+    "overrides": {
+      "@types/react": "19.2.2",
+      "@types/react-dom": "19.2.2"
+    }
   }
 }

@@ -4,12 +4,12 @@
 
 ## 技術スタック
 
-- **Next.js 16** - React フレームワーク（静的エクスポート）
-- **React 19.2** - UIライブラリ
-- **TypeScript 5** - 型安全な開発
-- **Tailwind CSS 4** - ユーティリティファーストCSS
-- **Turbopack** - 高速バンドラー（Next.js 16デフォルト）
-- **Vitest** - テストランナー
+- **Next.js 16** - 静的エクスポート
+- **React 19.2**
+- **TypeScript 5**
+- **Tailwind CSS 4**
+- **Turbopack**
+- **Vitest**
 
 ## 主な機能
 
@@ -78,7 +78,7 @@ pnpm type-check
 pnpm lint
 
 # テスト実行
-pnpm  test
+pnpm test
 
 # テスト（ウォッチモード）
 pnpm test:watch
@@ -130,8 +130,8 @@ mahjong-score-app/
 ├── LICENSE                    # ライセンス（MIT）
 ├── next-env.d.ts              # Next.js型定義（Git除外）
 ├── next.config.ts             # Next.js設定
-├── package-lock.json          # 依存関係ロックファイル
 ├── package.json               # プロジェクト設定・依存関係
+├── pnpm-lock.yaml             # 依存関係ロックファイル
 ├── postcss.config.mjs         # PostCSS設定
 ├── README.md                  # プロジェクト説明
 ├── tsconfig.json              # TypeScript設定

@@ -385,8 +385,8 @@ mahjong-score-app/
 ├── LICENSE                    # ライセンス（MIT）
 ├── next-env.d.ts              # Next.js型定義（Git除外）
 ├── next.config.ts             # Next.js設定
-├── package-lock.json          # 依存関係ロックファイル
 ├── package.json               # プロジェクト設定・依存関係
+├── pnpm-lock.yaml             # 依存関係ロックファイル
 ├── postcss.config.mjs         # PostCSS設定
 ├── README.md                  # プロジェクト説明
 ├── tsconfig.json              # TypeScript設定

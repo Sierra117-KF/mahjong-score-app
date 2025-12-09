@@ -1,11 +1,14 @@
-import { SCORE_CALCULATION, SCORE_RANKS, LOCALE } from '@/lib/constants';
-import type { ScoreInput, ScoreResult, TsumoPayment } from '@/types';
+import { LOCALE, SCORE_CALCULATION, SCORE_RANKS } from "@/lib/constants";
+import type { ScoreInput, ScoreResult, TsumoPayment } from "@/types";
 
 /**
  * 100点単位で切り上げる
  */
 function roundUp100(value: number): number {
-  return Math.ceil(value / SCORE_CALCULATION.ROUND_UP_UNIT) * SCORE_CALCULATION.ROUND_UP_UNIT;
+  return (
+    Math.ceil(value / SCORE_CALCULATION.ROUND_UP_UNIT) *
+    SCORE_CALCULATION.ROUND_UP_UNIT
+  );
 }
 
 /**
@@ -22,10 +25,12 @@ function getRankName(han: number, fu: number): string {
 
   // 満貫判定（5飜以上、または4飜40符以上、または3飜70符以上）
   if (han >= SCORE_CALCULATION.MANGAN_HAN_THRESHOLD) return SCORE_RANKS.MANGAN;
-  if (han === 4 && fu >= SCORE_CALCULATION.MANGAN_HAN_4_FU_40) return SCORE_RANKS.MANGAN;
-  if (han === 3 && fu >= SCORE_CALCULATION.MANGAN_HAN_3_FU_70) return SCORE_RANKS.MANGAN;
+  if (han === 4 && fu >= SCORE_CALCULATION.MANGAN_HAN_4_FU_40)
+    return SCORE_RANKS.MANGAN;
+  if (han === 3 && fu >= SCORE_CALCULATION.MANGAN_HAN_3_FU_70)
+    return SCORE_RANKS.MANGAN;
 
-  return '';
+  return "";
 }
 
 /**
@@ -45,9 +50,12 @@ function calculateBasePoints(han: number, fu: number): number {
   if (han >= 6) return SCORE_CALCULATION.HANE_MAN_POINTS;
 
   // 満貫判定
-  if (han >= SCORE_CALCULATION.MANGAN_HAN_THRESHOLD) return SCORE_CALCULATION.MANGAN_POINTS;
-  if (han === 4 && fu >= SCORE_CALCULATION.MANGAN_HAN_4_FU_40) return SCORE_CALCULATION.MANGAN_POINTS;
-  if (han === 3 && fu >= SCORE_CALCULATION.MANGAN_HAN_3_FU_70) return SCORE_CALCULATION.MANGAN_POINTS;
+  if (han >= SCORE_CALCULATION.MANGAN_HAN_THRESHOLD)
+    return SCORE_CALCULATION.MANGAN_POINTS;
+  if (han === 4 && fu >= SCORE_CALCULATION.MANGAN_HAN_4_FU_40)
+    return SCORE_CALCULATION.MANGAN_POINTS;
+  if (han === 3 && fu >= SCORE_CALCULATION.MANGAN_HAN_3_FU_70)
+    return SCORE_CALCULATION.MANGAN_POINTS;
 
   // 通常計算
   const basePoints = fu * Math.pow(2, han + 2);
@@ -60,24 +68,29 @@ function calculateBasePoints(han: number, fu: number): number {
  * 親のロン和了時の点数を計算
  */
 function calculateOyaRon(basePoints: number, honba: number): number {
-  return roundUp100(basePoints * SCORE_CALCULATION.OYA_RON_MULTIPLIER) + honba * SCORE_CALCULATION.HONBA_RON_POINTS;
+  return (
+    roundUp100(basePoints * SCORE_CALCULATION.OYA_RON_MULTIPLIER) +
+    honba * SCORE_CALCULATION.HONBA_RON_POINTS
+  );
 }
 
 /**
  * 子のロン和了時の点数を計算
  */
 function calculateKoRon(basePoints: number, honba: number): number {
-  return roundUp100(basePoints * SCORE_CALCULATION.KO_RON_MULTIPLIER) + honba * SCORE_CALCULATION.HONBA_RON_POINTS;
+  return (
+    roundUp100(basePoints * SCORE_CALCULATION.KO_RON_MULTIPLIER) +
+    honba * SCORE_CALCULATION.HONBA_RON_POINTS
+  );
 }
 
 /**
  * 親のツモ和了時の支払いを計算
  */
-function calculateOyaTsumo(
-  basePoints: number,
-  honba: number
-): TsumoPayment {
-  const koPayment = roundUp100(basePoints * SCORE_CALCULATION.OYA_TSUMO_MULTIPLIER) + honba * SCORE_CALCULATION.HONBA_TSUMO_POINTS;
+function calculateOyaTsumo(basePoints: number, honba: number): TsumoPayment {
+  const koPayment =
+    roundUp100(basePoints * SCORE_CALCULATION.OYA_TSUMO_MULTIPLIER) +
+    honba * SCORE_CALCULATION.HONBA_TSUMO_POINTS;
 
   return {
     koPayment,
@@ -90,17 +103,23 @@ function calculateOyaTsumo(
 function calculateKoTsumo(
   basePoints: number,
   honba: number,
-  gameMode: 'four' | 'three'
+  gameMode: "four" | "three"
 ): TsumoPayment {
-  const oyaMultiplier: number = gameMode === 'three'
-    ? SCORE_CALCULATION.THREE_PLAYER_OYA_TSUMO_MULTIPLIER
-    : SCORE_CALCULATION.OYA_TSUMO_MULTIPLIER;
-  const koMultiplier: number = gameMode === 'three'
-    ? SCORE_CALCULATION.THREE_PLAYER_KO_TSUMO_MULTIPLIER
-    : SCORE_CALCULATION.KO_TSUMO_MULTIPLIER;
+  const oyaMultiplier: number =
+    gameMode === "three"
+      ? SCORE_CALCULATION.THREE_PLAYER_OYA_TSUMO_MULTIPLIER
+      : SCORE_CALCULATION.OYA_TSUMO_MULTIPLIER;
+  const koMultiplier: number =
+    gameMode === "three"
+      ? SCORE_CALCULATION.THREE_PLAYER_KO_TSUMO_MULTIPLIER
+      : SCORE_CALCULATION.KO_TSUMO_MULTIPLIER;
 
-  const oyaPayment = roundUp100(basePoints * oyaMultiplier) + honba * SCORE_CALCULATION.HONBA_TSUMO_POINTS;
-  const koPayment = roundUp100(basePoints * koMultiplier) + honba * SCORE_CALCULATION.HONBA_TSUMO_POINTS;
+  const oyaPayment =
+    roundUp100(basePoints * oyaMultiplier) +
+    honba * SCORE_CALCULATION.HONBA_TSUMO_POINTS;
+  const koPayment =
+    roundUp100(basePoints * koMultiplier) +
+    honba * SCORE_CALCULATION.HONBA_TSUMO_POINTS;
 
   return {
     oyaPayment,
@@ -119,10 +138,11 @@ export function calculateScore(input: ScoreInput): ScoreResult {
   const rankName = getRankName(han, fu);
 
   // ロン和了の場合
-  if (winType === 'ron') {
-    const ronPayment = playerType === 'oya'
-      ? calculateOyaRon(basePoints, honba)
-      : calculateKoRon(basePoints, honba);
+  if (winType === "ron") {
+    const ronPayment =
+      playerType === "oya"
+        ? calculateOyaRon(basePoints, honba)
+        : calculateKoRon(basePoints, honba);
 
     return {
       total: ronPayment,
@@ -133,15 +153,16 @@ export function calculateScore(input: ScoreInput): ScoreResult {
   }
 
   // ツモ和了の場合
-  if (playerType === 'oya') {
+  if (playerType === "oya") {
     // 親ツモ
     const tsumoPayment = calculateOyaTsumo(basePoints, honba);
-    const numPlayers = gameMode === 'four' ? 3 : 2;
-    
+    const numPlayers = gameMode === "four" ? 3 : 2;
+
     // 4人打ちの場合は理論値（基本点×6）を使用
-    const total = gameMode === 'four'
-      ? roundUp100(basePoints * 6) + (honba * 300)
-      : tsumoPayment.koPayment * numPlayers;
+    const total =
+      gameMode === "four"
+        ? roundUp100(basePoints * 6) + honba * 300
+        : tsumoPayment.koPayment * numPlayers;
 
     return {
       total,
@@ -153,11 +174,12 @@ export function calculateScore(input: ScoreInput): ScoreResult {
     // 子ツモ
     const tsumoPayment = calculateKoTsumo(basePoints, honba, gameMode);
     const oyaPay = tsumoPayment.oyaPayment ?? 0;
-    
+
     // 4人打ちの場合は理論値（基本点×4）を使用
-    const total = gameMode === 'four'
-      ? roundUp100(basePoints * 4) + honba * 300
-      : oyaPay + tsumoPayment.koPayment;
+    const total =
+      gameMode === "four"
+        ? roundUp100(basePoints * 4) + honba * 300
+        : oyaPay + tsumoPayment.koPayment;
 
     return {
       total,

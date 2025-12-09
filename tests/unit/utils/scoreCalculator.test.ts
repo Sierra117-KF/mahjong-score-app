@@ -1,5 +1,5 @@
-import { calculateScore, formatScore } from '@/utils/scoreCalculator';
 import type { ScoreInput } from '@/types';
+import { calculateScore, formatScore } from '@/utils/scoreCalculator';
 
 describe('formatScore', () => {
   it('should format small numbers', () => {

@@ -1,12 +1,14 @@
-import { useState, useMemo } from 'react';
+import { useMemo, useState } from "react";
 
-import { DEFAULT_VALUES } from '@/lib/constants';
-import type { GameMode, PlayerType, WinType } from '@/types';
-import { calculateScore } from '@/utils/scoreCalculator';
+import { DEFAULT_VALUES } from "@/lib/constants";
+import type { GameMode, PlayerType, WinType } from "@/types";
+import { calculateScore } from "@/utils/scoreCalculator";
 
 export const useMahjongGame = () => {
   const [gameMode, setGameMode] = useState<GameMode>(DEFAULT_VALUES.gameMode);
-  const [playerType, setPlayerType] = useState<PlayerType>(DEFAULT_VALUES.playerType);
+  const [playerType, setPlayerType] = useState<PlayerType>(
+    DEFAULT_VALUES.playerType
+  );
   const [winType, setWinType] = useState<WinType>(DEFAULT_VALUES.winType);
   const [han, setHan] = useState(DEFAULT_VALUES.han);
   const [fu, setFu] = useState(DEFAULT_VALUES.fu);

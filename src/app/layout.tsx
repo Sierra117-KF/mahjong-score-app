@@ -1,5 +1,6 @@
-import type { Metadata, Viewport } from "next";
 import "./globals.css";
+
+import type { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
   title: "麻雀点数計算",

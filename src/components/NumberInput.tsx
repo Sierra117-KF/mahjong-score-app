@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from "react";
 
-import { KEYBOARD_KEYS, UI_TEXT } from '@/lib/constants';
-import type { NumberInputProps } from '@/types';
+import { KEYBOARD_KEYS, UI_TEXT } from "@/lib/constants";
+import type { NumberInputProps } from "@/types";
 
 export function NumberInput({
   label,
@@ -18,17 +18,20 @@ export function NumberInput({
   // 外側クリックで閉じる
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current !== null &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
 
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
 
@@ -46,13 +49,17 @@ export function NumberInput({
 
   return (
     <div className="flex flex-col gap-1.5">
-      <span className="text-sm font-medium text-gray-300 text-center">{label}</span>
+      <span className="text-sm font-medium text-gray-300 text-center">
+        {label}
+      </span>
 
       {/* カスタムドロップダウン（符／本場など数値セレクタ）- 上方向に開く */}
       <div ref={dropdownRef} className="relative">
         <button
           type="button"
-          onClick={() => { setIsOpen(!isOpen); }}
+          onClick={() => {
+            setIsOpen(!isOpen);
+          }}
           onKeyDown={handleKeyDown}
           aria-haspopup="listbox"
           aria-expanded={isOpen}
@@ -65,12 +72,14 @@ export function NumberInput({
           "
         >
           <span className="flex-1 text-center">{value}</span>
-          <span className={`text-white transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>
+          <span
+            className={`text-white transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+          >
             {UI_TEXT.DROPDOWN_ARROW}
           </span>
         </button>
 
-        {isOpen && (
+        {isOpen ? (
           <ul
             role="listbox"
             className="
@@ -86,9 +95,14 @@ export function NumberInput({
                 role="option"
                 tabIndex={0}
                 aria-selected={value === option}
-                onClick={() => { handleOptionSelect(option); }}
+                onClick={() => {
+                  handleOptionSelect(option);
+                }}
                 onKeyDown={(e) => {
-                  if (e.key === KEYBOARD_KEYS.ENTER || e.key === KEYBOARD_KEYS.SPACE) {
+                  if (
+                    e.key === KEYBOARD_KEYS.ENTER ||
+                    e.key === KEYBOARD_KEYS.SPACE
+                  ) {
                     e.preventDefault();
                     handleOptionSelect(option);
                   }
@@ -96,32 +110,34 @@ export function NumberInput({
                 className={`
                   px-3 py-2 text-base cursor-pointer
                   hover:bg-card-hover
-                  ${value === option ? 'bg-accent text-primary-bg font-medium' : 'text-white'}
+                  ${value === option ? "bg-accent text-primary-bg font-medium" : "text-white"}
                 `}
               >
                 {option}
               </li>
             ))}
           </ul>
-        )}
+        ) : null}
       </div>
 
       {/* クイックボタン（飜用） */}
-      {quickButtons && (
+      {Array.isArray(quickButtons) && quickButtons.length > 0 ? (
         <div className="flex flex-wrap gap-1.5 mt-2 w-full">
           {quickButtons.map((num) => (
             <button
               key={num}
               type="button"
-              onClick={() => { onChange(num); }}
+              onClick={() => {
+                onChange(num);
+              }}
               className={`
                 flex-1 min-w-0 px-2 py-2.5 text-base font-semibold rounded-md
                 transition-all duration-200 ease-in-out
                 min-h-[44px]
                 ${
                   value === num
-                    ? 'bg-accent text-primary-bg'
-                    : 'bg-card text-gray-300 hover:bg-card-hover'
+                    ? "bg-accent text-primary-bg"
+                    : "bg-card text-gray-300 hover:bg-card-hover"
                 }
               `}
             >
@@ -129,7 +145,7 @@ export function NumberInput({
             </button>
           ))}
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

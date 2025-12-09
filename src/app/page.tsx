@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { NumberInput } from '@/components/NumberInput';
-import { ScoreDisplay } from '@/components/ScoreDisplay';
-import { ToggleButton } from '@/components/ToggleButton';
-import { useMahjongGame } from '@/hooks/useMahjongGame';
+import { NumberInput } from "@/components/NumberInput";
+import { ScoreDisplay } from "@/components/ScoreDisplay";
+import { ToggleButton } from "@/components/ToggleButton";
+import { useMahjongGame } from "@/hooks/useMahjongGame";
 import {
   FU_OPTIONS,
   GAME_MODE_OPTIONS,
@@ -13,7 +13,8 @@ import {
   PLAYER_TYPE_OPTIONS,
   UI_TEXT,
   WIN_TYPE_OPTIONS,
-} from '@/lib/constants';
+} from "@/lib/constants";
+import type { GameMode, PlayerType, WinType } from "@/types";
 
 export default function Home() {
   const {
@@ -33,6 +34,30 @@ export default function Home() {
     handleReset,
   } = useMahjongGame();
 
+  const handleGameModeChange = (mode: GameMode) => {
+    setGameMode(mode);
+  };
+
+  const handlePlayerTypeChange = (type: PlayerType) => {
+    setPlayerType(type);
+  };
+
+  const handleWinTypeChange = (type: WinType) => {
+    setWinType(type);
+  };
+
+  const handleHanChange = (nextHan: number) => {
+    setHan(nextHan);
+  };
+
+  const handleFuChange = (nextFu: number) => {
+    setFu(nextFu);
+  };
+
+  const handleHonbaChange = (nextHonba: number) => {
+    setHonba(nextHonba);
+  };
+
   return (
     <div className="h-dvh flex flex-col p-3 sm:p-4 max-w-md mx-auto overflow-x-hidden">
       {/* ヘッダー */}
@@ -44,12 +69,7 @@ export default function Home() {
 
       {/* 点数表示エリア */}
       <section className="bg-card rounded-lg px-3 py-2 mb-3 relative z-10">
-        <ScoreDisplay
-          han={han}
-          fu={fu}
-          result={result}
-          winType={winType}
-        />
+        <ScoreDisplay han={han} fu={fu} result={result} winType={winType} />
       </section>
 
       {/* 設定エリア */}
@@ -59,7 +79,7 @@ export default function Home() {
           <ToggleButton
             options={GAME_MODE_OPTIONS}
             value={gameMode}
-            onChange={setGameMode}
+            onChange={handleGameModeChange}
             label={UI_TEXT.GAME_MODE_LABEL}
           />
         </section>
@@ -69,13 +89,13 @@ export default function Home() {
           <ToggleButton
             options={PLAYER_TYPE_OPTIONS}
             value={playerType}
-            onChange={setPlayerType}
+            onChange={handlePlayerTypeChange}
             label={UI_TEXT.PLAYER_LABEL}
           />
           <ToggleButton
             options={WIN_TYPE_OPTIONS}
             value={winType}
-            onChange={setWinType}
+            onChange={handleWinTypeChange}
             label={UI_TEXT.WIN_TYPE_LABEL}
           />
         </section>
@@ -85,7 +105,7 @@ export default function Home() {
           <NumberInput
             label={UI_TEXT.HAN_LABEL}
             value={han}
-            onChange={setHan}
+            onChange={handleHanChange}
             selectOptions={HAN_OPTIONS}
             quickButtons={HAN_QUICK_BUTTONS}
           />
@@ -97,7 +117,7 @@ export default function Home() {
             <NumberInput
               label={UI_TEXT.FU_LABEL}
               value={fu}
-              onChange={setFu}
+              onChange={handleFuChange}
               selectOptions={FU_OPTIONS}
             />
           </div>
@@ -105,7 +125,7 @@ export default function Home() {
             <NumberInput
               label={UI_TEXT.HONBA_LABEL}
               value={honba}
-              onChange={setHonba}
+              onChange={handleHonbaChange}
               selectOptions={HONBA_OPTIONS}
             />
           </div>

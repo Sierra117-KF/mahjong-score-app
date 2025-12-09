@@ -1,4 +1,4 @@
-import { fireEvent,render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 import { NumberInput } from "@/components/NumberInput";
 
@@ -48,13 +48,13 @@ describe("NumberInput", () => {
     });
 
     it("オプション選択でonChangeが呼ばれて閉じる", () => {
-      const onChange = vi.fn();
-      render(<NumberInput {...defaultProps} onChange={onChange} />);
+      const handleChange = vi.fn();
+      render(<NumberInput {...defaultProps} onChange={handleChange} />);
 
       fireEvent.click(screen.getByRole("button", { name: /30/ }));
       fireEvent.click(screen.getByRole("option", { name: "40" }));
 
-      expect(onChange).toHaveBeenCalledWith(40);
+      expect(handleChange).toHaveBeenCalledWith(40);
       expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     });
 
@@ -97,36 +97,36 @@ describe("NumberInput", () => {
     });
 
     it("Enterキーでオプションを選択できる", () => {
-      const onChange = vi.fn();
-      render(<NumberInput {...defaultProps} onChange={onChange} />);
+      const handleChange = vi.fn();
+      render(<NumberInput {...defaultProps} onChange={handleChange} />);
 
       fireEvent.click(screen.getByRole("button", { name: /30/ }));
       const option = screen.getByRole("option", { name: "40" });
 
       fireEvent.keyDown(option, { key: "Enter" });
-      expect(onChange).toHaveBeenCalledWith(40);
+      expect(handleChange).toHaveBeenCalledWith(40);
     });
 
     it("Spaceキーでオプションを選択できる", () => {
-      const onChange = vi.fn();
-      render(<NumberInput {...defaultProps} onChange={onChange} />);
+      const handleChange = vi.fn();
+      render(<NumberInput {...defaultProps} onChange={handleChange} />);
 
       fireEvent.click(screen.getByRole("button", { name: /30/ }));
       const option = screen.getByRole("option", { name: "40" });
 
       fireEvent.keyDown(option, { key: " " });
-      expect(onChange).toHaveBeenCalledWith(40);
+      expect(handleChange).toHaveBeenCalledWith(40);
     });
 
     it("その他のキーでは選択されない", () => {
-      const onChange = vi.fn();
-      render(<NumberInput {...defaultProps} onChange={onChange} />);
+      const handleChange = vi.fn();
+      render(<NumberInput {...defaultProps} onChange={handleChange} />);
 
       fireEvent.click(screen.getByRole("button", { name: /30/ }));
       const option = screen.getByRole("option", { name: "40" });
 
       fireEvent.keyDown(option, { key: "Tab" });
-      expect(onChange).not.toHaveBeenCalled();
+      expect(handleChange).not.toHaveBeenCalled();
     });
   });
 
@@ -135,7 +135,9 @@ describe("NumberInput", () => {
       render(
         <div>
           <NumberInput {...defaultProps} />
-          <button data-testid="outside">外側</button>
+          <button data-testid="outside" type="button">
+            外側
+          </button>
         </div>
       );
 
@@ -174,11 +176,11 @@ describe("NumberInput", () => {
     });
 
     it("クリックするとonChangeが呼ばれる", () => {
-      const onChange = vi.fn();
-      render(<NumberInput {...quickButtonProps} onChange={onChange} />);
+      const handleChange = vi.fn();
+      render(<NumberInput {...quickButtonProps} onChange={handleChange} />);
 
       fireEvent.click(screen.getByRole("button", { name: "4" }));
-      expect(onChange).toHaveBeenCalledWith(4);
+      expect(handleChange).toHaveBeenCalledWith(4);
     });
 
     it("クイックボタン未設定時はドロップダウンのみ", () => {

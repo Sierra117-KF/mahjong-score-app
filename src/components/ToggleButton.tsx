@@ -10,9 +10,7 @@ export function ToggleButton<T extends string>({
 }: ToggleButtonProps<T>) {
   return (
     <div className="flex flex-col gap-1.5">
-      {label && (
-        <span className="text-sm font-medium text-gray-300 text-center">{label}</span>
-      )}
+      {label ? <span className="text-sm font-medium text-gray-300 text-center">{label}</span> : null}
       <div className="flex gap-1.5">
         {options.map((option) => (
           <button

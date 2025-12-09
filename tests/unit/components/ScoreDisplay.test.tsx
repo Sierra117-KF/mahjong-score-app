@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+
 import { ScoreDisplay } from '@/components/ScoreDisplay';
 import type { ScoreResult, WinType } from '@/types';
 

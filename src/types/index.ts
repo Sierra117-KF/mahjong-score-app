@@ -12,7 +12,7 @@ export type PlayerType = "oya" | "ko";
 export type WinType = "ron" | "tsumo";
 
 /** 点数計算の入力パラメータ */
-export interface ScoreInput {
+export type ScoreInput = {
   /** ゲームモード */
   gameMode: GameMode;
   /** プレイヤー種別 */
@@ -28,7 +28,7 @@ export interface ScoreInput {
 }
 
 /** ツモ和了時の支払い詳細 */
-export interface TsumoPayment {
+export type TsumoPayment = {
   /** 親の支払い（子がツモの場合） */
   oyaPayment?: number;
   /** 子の支払い（親がツモの場合は全員この額） */
@@ -36,7 +36,7 @@ export interface TsumoPayment {
 }
 
 /** 点数計算の結果 */
-export interface ScoreResult {
+export type ScoreResult = {
   /** 合計点数 */
   total: number;
   /** 基本点 */
@@ -50,13 +50,13 @@ export interface ScoreResult {
 }
 
 /** トグルボタンの選択肢 */
-export interface ToggleOption<T extends string> {
+export type ToggleOption<T extends string> = {
   value: T;
   label: string;
 }
 
 /** トグルボタンのProps */
-export interface ToggleButtonProps<T extends string> {
+export type ToggleButtonProps<T extends string> = {
   options: ToggleOption<T>[];
   value: T;
   onChange: (value: T) => void;
@@ -64,7 +64,7 @@ export interface ToggleButtonProps<T extends string> {
 }
 
 /** 点数表示コンポーネントのProps */
-export interface ScoreDisplayProps {
+export type ScoreDisplayProps = {
   han: number;
   fu: number;
   result: ScoreResult;
@@ -72,7 +72,7 @@ export interface ScoreDisplayProps {
 }
 
 /** 数値入力コンポーネントのProps */
-export interface NumberInputProps {
+export type NumberInputProps = {
   label: string;
   value: number;
   onChange: (value: number) => void;

@@ -5,14 +5,14 @@ import { ScoreDisplay } from '@/components/ScoreDisplay';
 import { ToggleButton } from '@/components/ToggleButton';
 import { useMahjongGame } from '@/hooks/useMahjongGame';
 import {
-  GAME_MODE_OPTIONS,
-  PLAYER_TYPE_OPTIONS,
-  WIN_TYPE_OPTIONS,
-  HAN_QUICK_BUTTONS,
-  HAN_OPTIONS,
   FU_OPTIONS,
+  GAME_MODE_OPTIONS,
+  HAN_OPTIONS,
+  HAN_QUICK_BUTTONS,
   HONBA_OPTIONS,
+  PLAYER_TYPE_OPTIONS,
   UI_TEXT,
+  WIN_TYPE_OPTIONS,
 } from '@/lib/constants';
 
 export default function Home() {

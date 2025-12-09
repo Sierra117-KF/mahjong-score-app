@@ -1,4 +1,4 @@
-import type { GameMode, PlayerType, WinType, ScoreCalculationConfig } from "@/types";
+import type { GameMode, PlayerType, ScoreCalculationConfig,WinType } from "@/types";
 
 export const GAME_MODE_OPTIONS = [
   { value: "four" as const, label: "4人麻雀" },

@@ -17,11 +17,9 @@ export function ScoreDisplay({
         <span className="text-xl font-bold text-white">
           {han}{UI_TEXT.HAN_UNIT} {fu}{UI_TEXT.FU_UNIT}
         </span>
-        {result.rankName && (
-          <span className="ml-2 text-accent font-bold">
+        {result.rankName ? <span className="ml-2 text-accent font-bold">
             {result.rankName}
-          </span>
-        )}
+          </span> : null}
       </div>
 
       {/* メイン点数表示 */}
@@ -34,14 +32,11 @@ export function ScoreDisplay({
       <div className="space-y-1">
         <div className="text-sm text-gray-400">{UI_TEXT.BASE_POINT_LABEL}: {formatScore(result.basePoints)}{UI_TEXT.POINT_UNIT}</div>
 
-        {winType === 'ron' && result.ronPayment && (
-          <div className="text-lg font-medium text-yellow-400">
+        {winType === 'ron' && result.ronPayment ? <div className="text-lg font-medium text-yellow-400">
             {UI_TEXT.RON_PAYMENT_LABEL}: {formatScore(result.ronPayment)}{UI_TEXT.POINT_UNIT}
-          </div>
-        )}
+          </div> : null}
 
-        {winType === 'tsumo' && result.tsumoPayment && (
-          <div className="text-lg font-medium text-yellow-400">
+        {winType === 'tsumo' && result.tsumoPayment ? <div className="text-lg font-medium text-yellow-400">
             {result.tsumoPayment.oyaPayment ? (
               // 子ツモの場合（3人/4人共通表示）
               <>
@@ -54,8 +49,7 @@ export function ScoreDisplay({
                 {formatScore(result.tsumoPayment.koPayment)}{UI_TEXT.POINT_UNIT}{UI_TEXT.ALL_PAYMENT_SUFFIX}
               </>
             )}
-          </div>
-        )}
+          </div> : null}
       </div>
     </div>
   );

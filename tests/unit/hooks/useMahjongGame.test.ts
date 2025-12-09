@@ -1,4 +1,5 @@
-import { renderHook, act } from '@testing-library/react';
+import { act,renderHook } from '@testing-library/react';
+
 import { useMahjongGame } from '@/hooks/useMahjongGame';
 import { DEFAULT_VALUES } from '@/lib/constants';
 import { calculateScore } from '@/utils/scoreCalculator';

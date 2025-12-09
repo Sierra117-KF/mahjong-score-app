@@ -1,4 +1,4 @@
-import { SCORE_CALCULATION, SCORE_RANKS, LOCALE } from '@/lib/constants';
+import { LOCALE,SCORE_CALCULATION, SCORE_RANKS } from '@/lib/constants';
 import type { ScoreInput, ScoreResult, TsumoPayment } from '@/types';
 
 /**

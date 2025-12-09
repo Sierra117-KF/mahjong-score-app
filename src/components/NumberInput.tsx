@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useEffect,useRef, useState } from 'react';
 
 import { KEYBOARD_KEYS, UI_TEXT } from '@/lib/constants';
 import type { NumberInputProps } from '@/types';
@@ -70,8 +70,7 @@ export function NumberInput({
           </span>
         </button>
 
-        {isOpen && (
-          <ul
+        {isOpen ? <ul
             role="listbox"
             className="
               absolute bottom-full left-0 right-0 mb-1
@@ -102,13 +101,11 @@ export function NumberInput({
                 {option}
               </li>
             ))}
-          </ul>
-        )}
+          </ul> : null}
       </div>
 
       {/* クイックボタン（飜用） */}
-      {quickButtons && (
-        <div className="flex flex-wrap gap-1.5 mt-2 w-full">
+      {quickButtons ? <div className="flex flex-wrap gap-1.5 mt-2 w-full">
           {quickButtons.map((num) => (
             <button
               key={num}
@@ -128,8 +125,7 @@ export function NumberInput({
               {num}
             </button>
           ))}
-        </div>
-      )}
+        </div> : null}
     </div>
   );
 }

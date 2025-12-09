@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useMemo,useState } from 'react';
 
 import { DEFAULT_VALUES } from '@/lib/constants';
 import type { GameMode, PlayerType, WinType } from '@/types';

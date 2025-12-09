@@ -10,7 +10,6 @@ import testingLibrary from "eslint-plugin-testing-library";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import unusedImports from "eslint-plugin-unused-imports";
 import globals from "globals";
-import jsxA11y from "eslint-plugin-jsx-a11y";
 import importPlugin from "eslint-plugin-import";
 
 const __filename = fileURLToPath(import.meta.url);

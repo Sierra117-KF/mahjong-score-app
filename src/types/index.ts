@@ -25,7 +25,7 @@ export type ScoreInput = {
   fu: number;
   /** 本場数 */
   honba: number;
-}
+};
 
 /** ツモ和了時の支払い詳細 */
 export type TsumoPayment = {
@@ -33,7 +33,7 @@ export type TsumoPayment = {
   oyaPayment?: number;
   /** 子の支払い（親がツモの場合は全員この額） */
   koPayment: number;
-}
+};
 
 /** 点数計算の結果 */
 export type ScoreResult = {
@@ -47,13 +47,13 @@ export type ScoreResult = {
   ronPayment?: number;
   /** ツモ時の支払い詳細 */
   tsumoPayment?: TsumoPayment;
-}
+};
 
 /** トグルボタンの選択肢 */
 export type ToggleOption<T extends string> = {
   value: T;
   label: string;
-}
+};
 
 /** トグルボタンのProps */
 export type ToggleButtonProps<T extends string> = {
@@ -61,7 +61,7 @@ export type ToggleButtonProps<T extends string> = {
   value: T;
   onChange: (value: T) => void;
   label?: string;
-}
+};
 
 /** 点数表示コンポーネントのProps */
 export type ScoreDisplayProps = {
@@ -69,7 +69,7 @@ export type ScoreDisplayProps = {
   fu: number;
   result: ScoreResult;
   winType: WinType;
-}
+};
 
 /** 数値入力コンポーネントのProps */
 export type NumberInputProps = {
@@ -78,7 +78,7 @@ export type NumberInputProps = {
   onChange: (value: number) => void;
   quickButtons?: number[];
   selectOptions: number[];
-}
+};
 
 /** 点数計算設定 */
 export type ScoreCalculationConfig = Readonly<{

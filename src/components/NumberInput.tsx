@@ -121,7 +121,7 @@ export function NumberInput({
       </div>
 
       {/* クイックボタン（飜用） */}
-      {quickButtons !== undefined ? (
+      {Array.isArray(quickButtons) && quickButtons.length > 0 ? (
         <div className="flex flex-wrap gap-1.5 mt-2 w-full">
           {quickButtons.map((num) => (
             <button

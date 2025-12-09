@@ -31,7 +31,6 @@ export default tseslint.config(
       "out/**",
       "public/**",
       "**/*.min.js",
-      "**/*.d.ts",
       "**/*.tsbuildinfo",
       "next-env.d.ts",
       "next.config.*",

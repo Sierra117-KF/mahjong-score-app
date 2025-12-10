@@ -165,10 +165,11 @@ export default tseslint.config(
       "@typescript-eslint/strict-boolean-expressions": [
         "error",
         {
-          allowString: true, // 一部緩和
-          allowNumber: true, // 一部緩和
-          allowNullableObject: true, // 一部緩和
-          allowNullableBoolean: false,
+          // 一部緩和
+          allowString: true,
+          allowNumber: true,
+          allowNullableObject: true,
+          allowNullableBoolean: true,
           allowNullableString: false,
           allowNullableNumber: false,
           allowAny: false,
@@ -204,15 +205,24 @@ export default tseslint.config(
           format: ["camelCase", "PascalCase", "UPPER_CASE"],
           leadingUnderscore: "allow",
         },
-        // クラスとインターフェースだけPascalCase
         {
           selector: "typeLike",
           format: ["PascalCase"],
         },
-        // それ以外は柔軟に
         {
-          selector: ["variable", "function", "parameter"],
-          format: null,
+          selector: "variable",
+          format: ["camelCase", "PascalCase", "UPPER_CASE"],
+          leadingUnderscore: "allow",
+        },
+        {
+          selector: "function",
+          format: ["camelCase", "PascalCase"],
+          leadingUnderscore: "allow",
+        },
+        {
+          selector: "parameter",
+          format: ["camelCase"],
+          leadingUnderscore: "allow",
         },
       ],
 
@@ -267,7 +277,7 @@ export default tseslint.config(
         { ignoreVoid: true, ignoreIIFE: false },
       ],
       "@typescript-eslint/switch-exhaustiveness-check": "error",
-      // "@typescript-eslint/promise-function-async": "error", // 一旦無効化
+      "@typescript-eslint/promise-function-async": "error",
 
       // ----------------------------------------------------
       // Import & Code Cleanup
@@ -327,6 +337,16 @@ export default tseslint.config(
           warnOnDuplicates: true,
         },
       ],
+      "react/destructuring-assignment": ["error", "always"],
+      "react/jsx-handler-names": [
+        "error",
+        {
+          eventHandlerPrefix: "handle",
+          eventHandlerPropPrefix: "on",
+          checkLocalVariables: true,
+          checkInlineFunction: false,
+        },
+      ],
 
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": [
@@ -347,6 +367,15 @@ export default tseslint.config(
       "@next/next/no-img-element": "error",
       "@next/next/no-sync-scripts": "error",
       "@next/next/no-css-tags": "error",
+      "react/jsx-no-bind": [
+        "error",
+        {
+          ignoreRefs: true,
+          allowArrowFunctions: true,
+          allowFunctions: false,
+          allowBind: false,
+        },
+      ],
     },
   },
 

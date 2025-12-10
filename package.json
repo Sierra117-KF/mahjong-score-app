@@ -14,7 +14,11 @@
     "test": "vitest --run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage",
+    "test:jsdom": "vitest --run --project=jsdom",
+    "test:browser": "vitest --config=vitest.browser.config.ts",
+    "test:browser:watch": "vitest --project=browser",
+    "test:browser:ui": "vitest --project=browser --browser.headless=false"
   },
   "dependencies": {
     "next": "16.0.8",
@@ -46,7 +50,8 @@
     "tailwindcss": "^4",
     "typescript": "^5",
     "typescript-eslint": "^8.49.0",
-    "vitest": "^4.0.15"
+    "vitest": "^4.0.15",
+    "vitest-browser-react": "^2.0.2"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

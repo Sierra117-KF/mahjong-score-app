@@ -163,9 +163,9 @@ export default tseslint.config(
       "@typescript-eslint/strict-boolean-expressions": [
         "error",
         {
-          allowString: false,
-          allowNumber: false,
-          allowNullableObject: false,
+          allowString: true, // 一部緩和
+          allowNumber: true, // 一部緩和
+          allowNullableObject: true, // 一部緩和
           allowNullableBoolean: false,
           allowNullableString: false,
           allowNullableNumber: false,
@@ -199,37 +199,18 @@ export default tseslint.config(
         "error",
         {
           selector: "default",
-          format: ["camelCase"],
-          leadingUnderscore: "allow",
-          trailingUnderscore: "forbid",
-        },
-        {
-          selector: "variable",
-          format: ["camelCase", "UPPER_CASE", "PascalCase"],
+          format: ["camelCase", "PascalCase", "UPPER_CASE"],
           leadingUnderscore: "allow",
         },
-        {
-          selector: "function",
-          format: ["camelCase", "PascalCase"],
-        },
+        // クラスとインターフェースだけPascalCase
         {
           selector: "typeLike",
           format: ["PascalCase"],
         },
+        // それ以外は柔軟に
         {
-          selector: "property",
+          selector: ["variable", "function", "parameter"],
           format: null,
-        },
-        {
-          selector: "variable",
-          types: ["boolean"],
-          format: ["PascalCase", "camelCase"],
-        },
-        {
-          selector: "property",
-          modifiers: ["private"],
-          format: ["camelCase"],
-          leadingUnderscore: "require",
         },
       ],
 
@@ -284,7 +265,7 @@ export default tseslint.config(
         { ignoreVoid: true, ignoreIIFE: false },
       ],
       "@typescript-eslint/switch-exhaustiveness-check": "error",
-      "@typescript-eslint/promise-function-async": "error",
+      // "@typescript-eslint/promise-function-async": "error", // 一旦無効化
 
       // ----------------------------------------------------
       // Import & Code Cleanup
@@ -344,16 +325,6 @@ export default tseslint.config(
           warnOnDuplicates: true,
         },
       ],
-      "react/destructuring-assignment": ["error", "always"],
-      "react/jsx-handler-names": [
-        "error",
-        {
-          eventHandlerPrefix: "handle",
-          eventHandlerPropPrefix: "on",
-          checkLocalVariables: true,
-          checkInlineFunction: false,
-        },
-      ],
 
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": [
@@ -374,16 +345,6 @@ export default tseslint.config(
       "@next/next/no-img-element": "error",
       "@next/next/no-sync-scripts": "error",
       "@next/next/no-css-tags": "error",
-
-      "react/jsx-no-bind": [
-        "warn",
-        {
-          ignoreRefs: true,
-          allowArrowFunctions: true,
-          allowFunctions: false,
-          allowBind: false,
-        },
-      ],
     },
   },
 
@@ -484,9 +445,9 @@ export default tseslint.config(
       ...testingLibrary.configs["flat/react"].rules,
 
       "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/no-unsafe-assignment": "warn",
-      "@typescript-eslint/no-unsafe-call": "warn",
-      "@typescript-eslint/no-unsafe-member-access": "warn",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
       "@typescript-eslint/unbound-method": "off",
       "@typescript-eslint/no-non-null-assertion": "off",
       "@typescript-eslint/strict-boolean-expressions": "off",

@@ -35,9 +35,11 @@ export default tseslint.config(
       "next-env.d.ts",
       "next.config.*",
       "vitest.config.*",
+      "vitest.browser.config.*",
       "postcss.config.*",
       "tailwind.config.*",
       "eslint.config.*",
+      "vitest-example/**",
     ],
   },
 
@@ -163,10 +165,11 @@ export default tseslint.config(
       "@typescript-eslint/strict-boolean-expressions": [
         "error",
         {
-          allowString: false,
-          allowNumber: false,
-          allowNullableObject: false,
-          allowNullableBoolean: false,
+          // 一部緩和
+          allowString: true,
+          allowNumber: true,
+          allowNullableObject: true,
+          allowNullableBoolean: true,
           allowNullableString: false,
           allowNullableNumber: false,
           allowAny: false,
@@ -199,37 +202,27 @@ export default tseslint.config(
         "error",
         {
           selector: "default",
-          format: ["camelCase"],
+          format: ["camelCase", "PascalCase", "UPPER_CASE"],
           leadingUnderscore: "allow",
-          trailingUnderscore: "forbid",
-        },
-        {
-          selector: "variable",
-          format: ["camelCase", "UPPER_CASE", "PascalCase"],
-          leadingUnderscore: "allow",
-        },
-        {
-          selector: "function",
-          format: ["camelCase", "PascalCase"],
         },
         {
           selector: "typeLike",
           format: ["PascalCase"],
         },
         {
-          selector: "property",
-          format: null,
-        },
-        {
           selector: "variable",
-          types: ["boolean"],
-          format: ["PascalCase", "camelCase"],
+          format: ["camelCase", "PascalCase", "UPPER_CASE"],
+          leadingUnderscore: "allow",
         },
         {
-          selector: "property",
-          modifiers: ["private"],
+          selector: "function",
+          format: ["camelCase", "PascalCase"],
+          leadingUnderscore: "allow",
+        },
+        {
+          selector: "parameter",
           format: ["camelCase"],
-          leadingUnderscore: "require",
+          leadingUnderscore: "allow",
         },
       ],
 
@@ -374,9 +367,8 @@ export default tseslint.config(
       "@next/next/no-img-element": "error",
       "@next/next/no-sync-scripts": "error",
       "@next/next/no-css-tags": "error",
-
       "react/jsx-no-bind": [
-        "warn",
+        "error",
         {
           ignoreRefs: true,
           allowArrowFunctions: true,
@@ -484,9 +476,9 @@ export default tseslint.config(
       ...testingLibrary.configs["flat/react"].rules,
 
       "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/no-unsafe-assignment": "warn",
-      "@typescript-eslint/no-unsafe-call": "warn",
-      "@typescript-eslint/no-unsafe-member-access": "warn",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
       "@typescript-eslint/unbound-method": "off",
       "@typescript-eslint/no-non-null-assertion": "off",
       "@typescript-eslint/strict-boolean-expressions": "off",
@@ -512,7 +504,19 @@ export default tseslint.config(
   },
 
   // ========================================================
-  // 12. Prettier
+  // 12. Browser Mode テスト専用設定
+  // ========================================================
+  {
+    name: "browser-mode-tests",
+    files: ["**/*.browser.test.{ts,tsx}"],
+    rules: {
+      // Browser Modeではpageオブジェクトを使用するため、prefer-screen-queriesは無効化
+      "testing-library/prefer-screen-queries": "off",
+    },
+  },
+
+  // ========================================================
+  // 13. Prettier
   // ========================================================
   eslintConfigPrettier
 );

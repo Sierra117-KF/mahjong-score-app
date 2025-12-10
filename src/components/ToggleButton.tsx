@@ -20,6 +20,7 @@ export function ToggleButton<T extends string>({
           <button
             key={option.value}
             type="button"
+            aria-pressed={value === option.value}
             onClick={() => {
               onChange(option.value);
             }}

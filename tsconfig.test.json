@@ -1,10 +1,6 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    // ES2024はTypeScript 5.9.3でサポートされていないため、ES2022にオーバーライド
-    "target": "ES2022",
-    "lib": ["dom", "dom.iterable", "ES2022"],
-
     // テスト環境固有の型定義を追加
     "types": [
       "vitest/globals",

@@ -35,9 +35,11 @@ export default tseslint.config(
       "next-env.d.ts",
       "next.config.*",
       "vitest.config.*",
+      "vitest.browser.config.*",
       "postcss.config.*",
       "tailwind.config.*",
       "eslint.config.*",
+      "vitest-example/**",
     ],
   },
 
@@ -473,7 +475,19 @@ export default tseslint.config(
   },
 
   // ========================================================
-  // 12. Prettier
+  // 12. Browser Mode テスト専用設定
+  // ========================================================
+  {
+    name: "browser-mode-tests",
+    files: ["**/*.browser.test.{ts,tsx}"],
+    rules: {
+      // Browser Modeではpageオブジェクトを使用するため、prefer-screen-queriesは無効化
+      "testing-library/prefer-screen-queries": "off",
+    },
+  },
+
+  // ========================================================
+  // 13. Prettier
   // ========================================================
   eslintConfigPrettier
 );

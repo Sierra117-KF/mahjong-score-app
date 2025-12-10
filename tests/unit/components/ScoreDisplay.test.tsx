@@ -78,7 +78,7 @@ describe('ScoreDisplay', () => {
     });
 
     it('役名が空文字の場合、役名は表示されない', () => {
-      const { queryByText } = renderScoreDisplay({
+      renderScoreDisplay({
         han: 1,
         fu: 30,
         result: { total: 1000, basePoints: 240, rankName: '' },
@@ -86,7 +86,7 @@ describe('ScoreDisplay', () => {
 
       // 飜符は表示されているが、役名（満貫、跳満等）は表示されない
       expect(screen.getByText('1飜 30符')).toBeInTheDocument();
-      expect(queryByText(/満貫|跳満|倍満|三倍満|役満/)).not.toBeInTheDocument();
+      expect(screen.queryByText(/満貫|跳満|倍満|三倍満|役満/)).not.toBeInTheDocument();
     });
   });
 

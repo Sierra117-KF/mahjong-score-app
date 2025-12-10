@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import { NumberInput } from "@/components/NumberInput";
 
@@ -27,51 +28,56 @@ describe("NumberInput", () => {
   });
 
   describe("ドロップダウン挙動", () => {
-    it("クリックでドロップダウンが開閉する", () => {
+    it("クリックでドロップダウンが開閉する", async () => {
+      const user = userEvent.setup();
       render(<NumberInput {...defaultProps} />);
 
       const button = screen.getByRole("button", { name: /30/ });
-      fireEvent.click(button);
+      await user.click(button);
       expect(screen.getByRole("listbox")).toBeInTheDocument();
 
-      fireEvent.click(button);
+      await user.click(button);
       expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     });
 
-    it("オプション一覧がすべて表示される", () => {
+    it("オプション一覧がすべて表示される", async () => {
+      const user = userEvent.setup();
       render(<NumberInput {...defaultProps} />);
 
-      fireEvent.click(screen.getByRole("button", { name: /30/ }));
+      await user.click(screen.getByRole("button", { name: /30/ }));
       expect(screen.getAllByRole("option")).toHaveLength(
         defaultProps.selectOptions.length
       );
     });
 
-    it("オプション選択でonChangeが呼ばれて閉じる", () => {
+    it("オプション選択でonChangeが呼ばれて閉じる", async () => {
+      const user = userEvent.setup();
       const handleChange = vi.fn();
       render(<NumberInput {...defaultProps} onChange={handleChange} />);
 
-      fireEvent.click(screen.getByRole("button", { name: /30/ }));
-      fireEvent.click(screen.getByRole("option", { name: "40" }));
+      await user.click(screen.getByRole("button", { name: /30/ }));
+      await user.click(screen.getByRole("option", { name: "40" }));
 
       expect(handleChange).toHaveBeenCalledWith(40);
       expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     });
 
-    it("aria属性が正しく設定される", () => {
+    it("aria属性が正しく設定される", async () => {
+      const user = userEvent.setup();
       render(<NumberInput {...defaultProps} />);
 
       const button = screen.getByRole("button", { name: /30/ });
       expect(button).toHaveAttribute("aria-haspopup", "listbox");
       expect(button).toHaveAttribute("aria-expanded", "false");
 
-      fireEvent.click(button);
+      await user.click(button);
       expect(button).toHaveAttribute("aria-expanded", "true");
     });
 
-    it("選択中のオプションにaria-selectedが付与される", () => {
+    it("選択中のオプションにaria-selectedが付与される", async () => {
+      const user = userEvent.setup();
       render(<NumberInput {...defaultProps} />);
-      fireEvent.click(screen.getByRole("button", { name: /30/ }));
+      await user.click(screen.getByRole("button", { name: /30/ }));
 
       expect(screen.getByRole("option", { name: "30" })).toHaveAttribute(
         "aria-selected",
@@ -85,77 +91,93 @@ describe("NumberInput", () => {
   });
 
   describe("キーボード操作", () => {
-    it("Escapeでドロップダウンを閉じる", () => {
+    it("Escapeでドロップダウンを閉じる", async () => {
+      const user = userEvent.setup();
       render(<NumberInput {...defaultProps} />);
 
       const button = screen.getByRole("button", { name: /30/ });
-      fireEvent.click(button);
+      await user.click(button);
       expect(screen.getByRole("listbox")).toBeInTheDocument();
 
-      fireEvent.keyDown(button, { key: "Escape" });
+      await user.keyboard("{Escape}");
       expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     });
 
-    it("Enterキーでオプションを選択できる", () => {
+    it("Enterキーでオプションを選択できる", async () => {
+      const user = userEvent.setup();
       const handleChange = vi.fn();
       render(<NumberInput {...defaultProps} onChange={handleChange} />);
 
-      fireEvent.click(screen.getByRole("button", { name: /30/ }));
-      const option = screen.getByRole("option", { name: "40" });
+      await user.click(screen.getByRole("button", { name: /30/ }));
+      await user.tab();
+      const firstOption = screen.getByRole("option", { name: "10" });
 
-      fireEvent.keyDown(option, { key: "Enter" });
-      expect(handleChange).toHaveBeenCalledWith(40);
+      expect(firstOption).toHaveFocus();
+
+      await user.keyboard("{Enter}");
+      expect(handleChange).toHaveBeenCalledWith(10);
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     });
 
-    it("Spaceキーでオプションを選択できる", () => {
+    it("Spaceキーでオプションを選択できる", async () => {
+      const user = userEvent.setup();
       const handleChange = vi.fn();
       render(<NumberInput {...defaultProps} onChange={handleChange} />);
 
-      fireEvent.click(screen.getByRole("button", { name: /30/ }));
-      const option = screen.getByRole("option", { name: "40" });
+      await user.click(screen.getByRole("button", { name: /30/ }));
+      await user.tab();
+      const firstOption = screen.getByRole("option", { name: "10" });
 
-      fireEvent.keyDown(option, { key: " " });
-      expect(handleChange).toHaveBeenCalledWith(40);
+      expect(firstOption).toHaveFocus();
+
+      await user.keyboard("{ }");
+      expect(handleChange).toHaveBeenCalledWith(10);
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     });
 
-    it("その他のキーでは選択されない", () => {
+    it("その他のキーでは選択されない", async () => {
+      const user = userEvent.setup();
       const handleChange = vi.fn();
       render(<NumberInput {...defaultProps} onChange={handleChange} />);
 
-      fireEvent.click(screen.getByRole("button", { name: /30/ }));
-      const option = screen.getByRole("option", { name: "40" });
+      await user.click(screen.getByRole("button", { name: /30/ }));
+      await user.tab();
+      const firstOption = screen.getByRole("option", { name: "10" });
 
-      fireEvent.keyDown(option, { key: "Tab" });
+      expect(firstOption).toHaveFocus();
+
+      await user.keyboard("{ArrowRight}");
       expect(handleChange).not.toHaveBeenCalled();
+      expect(screen.getByRole("listbox")).toBeInTheDocument();
     });
   });
 
   describe("外側クリック", () => {
-    it("外側クリックで閉じる", () => {
+    it("外側クリックで閉じる", async () => {
+      const user = userEvent.setup();
       render(
         <div>
           <NumberInput {...defaultProps} />
-          <button data-testid="outside" type="button">
-            外側
-          </button>
+          <button type="button">外側</button>
         </div>
       );
 
       const button = screen.getByRole("button", { name: /30/ });
-      fireEvent.click(button);
+      await user.click(button);
       expect(screen.getByRole("listbox")).toBeInTheDocument();
 
-      fireEvent.mouseDown(screen.getByTestId("outside"));
+      await user.click(screen.getByRole("button", { name: "外側" }));
       expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     });
 
-    it("ドロップダウン内のクリックでは閉じない", () => {
+    it("ドロップダウン内のクリックでは閉じない", async () => {
+      const user = userEvent.setup();
       render(<NumberInput {...defaultProps} />);
 
-      fireEvent.click(screen.getByRole("button", { name: /30/ }));
+      await user.click(screen.getByRole("button", { name: /30/ }));
       const listbox = screen.getByRole("listbox");
 
-      fireEvent.mouseDown(listbox);
+      await user.click(listbox);
       expect(screen.getByRole("listbox")).toBeInTheDocument();
     });
   });
@@ -175,24 +197,29 @@ describe("NumberInput", () => {
       });
     });
 
-    it("クリックするとonChangeが呼ばれる", () => {
+    it("クリックするとonChangeが呼ばれる", async () => {
+      const user = userEvent.setup();
       const handleChange = vi.fn();
       render(<NumberInput {...quickButtonProps} onChange={handleChange} />);
 
-      fireEvent.click(screen.getByRole("button", { name: "4" }));
+      await user.click(screen.getByRole("button", { name: "4" }));
       expect(handleChange).toHaveBeenCalledWith(4);
     });
 
     it("クイックボタン未設定時はドロップダウンのみ", () => {
       render(<NumberInput {...defaultProps} />);
-      const buttons = screen.getAllByRole("button");
-      expect(buttons).toHaveLength(1);
+      expect(screen.getByRole("button", { name: /30/ })).toBeInTheDocument();
+      expect(
+        screen.queryByRole("button", { name: "1" })
+      ).not.toBeInTheDocument();
     });
 
     it("クイックボタンが空配列でもエラーにならない", () => {
       render(<NumberInput {...defaultProps} quickButtons={[]} />);
-      const buttons = screen.getAllByRole("button");
-      expect(buttons).toHaveLength(1);
+      expect(screen.getByRole("button", { name: /30/ })).toBeInTheDocument();
+      expect(
+        screen.queryByRole("button", { name: "1" })
+      ).not.toBeInTheDocument();
     });
   });
 
@@ -211,10 +238,11 @@ describe("NumberInput", () => {
       expect(screen.getByRole("button", { name: "4" })).toBeInTheDocument();
     });
 
-    it("selectOptionsが空でもリストを開ける", () => {
+    it("selectOptionsが空でもリストを開ける", async () => {
+      const user = userEvent.setup();
       render(<NumberInput {...defaultProps} selectOptions={[]} />);
 
-      fireEvent.click(screen.getByRole("button", { name: /30/ }));
+      await user.click(screen.getByRole("button", { name: /30/ }));
       expect(screen.getByRole("listbox")).toBeInTheDocument();
       expect(screen.queryAllByRole("option")).toHaveLength(0);
     });

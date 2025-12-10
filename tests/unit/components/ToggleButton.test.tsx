@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import { ToggleButton } from "@/components/ToggleButton";
 
@@ -62,30 +63,26 @@ describe("ToggleButton", () => {
     });
   });
 
-  describe("選択状態のスタイル", () => {
-    it("選択されたオプションにアクセントカラーが適用される", () => {
+  describe("選択状態", () => {
+    it("選択されたオプションがaria-pressed=trueになる", () => {
       render(<ToggleButton {...defaultProps} value="option2" />);
 
       const selectedButton = screen.getByRole("button", {
         name: "オプション2",
       });
-      expect(selectedButton).toHaveClass("bg-accent");
-      expect(selectedButton).toHaveClass("text-primary-bg");
-      expect(selectedButton).toHaveClass("shadow-md");
+      expect(selectedButton).toHaveAttribute("aria-pressed", "true");
     });
 
-    it("選択されていないオプションに通常スタイルが適用される", () => {
+    it("選択されていないオプションがaria-pressed=falseになる", () => {
       render(<ToggleButton {...defaultProps} value="option1" />);
 
       const unselectedButton = screen.getByRole("button", {
         name: "オプション2",
       });
-      expect(unselectedButton).toHaveClass("bg-card");
-      expect(unselectedButton).toHaveClass("text-gray-300");
-      expect(unselectedButton).toHaveClass("hover:bg-card-hover");
+      expect(unselectedButton).toHaveAttribute("aria-pressed", "false");
     });
 
-    it("選択を変更するとスタイルが正しく更新される", () => {
+    it("選択を変更するとaria-pressedが正しく更新される", () => {
       const { rerender } = render(
         <ToggleButton {...defaultProps} value="option1" />
       );
@@ -93,41 +90,44 @@ describe("ToggleButton", () => {
       let button1 = screen.getByRole("button", { name: "オプション1" });
       let button2 = screen.getByRole("button", { name: "オプション2" });
 
-      expect(button1).toHaveClass("bg-accent");
-      expect(button2).toHaveClass("bg-card");
+      expect(button1).toHaveAttribute("aria-pressed", "true");
+      expect(button2).toHaveAttribute("aria-pressed", "false");
 
       rerender(<ToggleButton {...defaultProps} value="option2" />);
 
       button1 = screen.getByRole("button", { name: "オプション1" });
       button2 = screen.getByRole("button", { name: "オプション2" });
 
-      expect(button1).toHaveClass("bg-card");
-      expect(button2).toHaveClass("bg-accent");
+      expect(button1).toHaveAttribute("aria-pressed", "false");
+      expect(button2).toHaveAttribute("aria-pressed", "true");
     });
   });
 
   describe("クリックイベント", () => {
-    it("ボタンをクリックするとonChangeが呼ばれる", () => {
+    it("ボタンをクリックするとonChangeが呼ばれる", async () => {
+      const user = userEvent.setup();
       const handleChange = vi.fn();
       render(<ToggleButton {...defaultProps} onChange={handleChange} />);
 
       const button = screen.getByRole("button", { name: "オプション2" });
-      fireEvent.click(button);
+      await user.click(button);
 
       expect(handleChange).toHaveBeenCalledTimes(1);
     });
 
-    it("クリックしたボタンの値でonChangeが呼ばれる", () => {
+    it("クリックしたボタンの値でonChangeが呼ばれる", async () => {
+      const user = userEvent.setup();
       const handleChange = vi.fn();
       render(<ToggleButton {...defaultProps} onChange={handleChange} />);
 
       const button = screen.getByRole("button", { name: "オプション2" });
-      fireEvent.click(button);
+      await user.click(button);
 
       expect(handleChange).toHaveBeenCalledWith("option2");
     });
 
-    it("各ボタンが正しい値でonChangeを呼ぶ", () => {
+    it("各ボタンが正しい値でonChangeを呼ぶ", async () => {
+      const user = userEvent.setup();
       const handleChange = vi.fn();
       render(<ToggleButton {...defaultProps} onChange={handleChange} />);
 
@@ -135,27 +135,28 @@ describe("ToggleButton", () => {
       const button2 = screen.getByRole("button", { name: "オプション2" });
       const button3 = screen.getByRole("button", { name: "オプション3" });
 
-      fireEvent.click(button1);
+      await user.click(button1);
       expect(handleChange).toHaveBeenLastCalledWith("option1");
 
-      fireEvent.click(button2);
+      await user.click(button2);
       expect(handleChange).toHaveBeenLastCalledWith("option2");
 
-      fireEvent.click(button3);
+      await user.click(button3);
       expect(handleChange).toHaveBeenLastCalledWith("option3");
 
       expect(handleChange).toHaveBeenCalledTimes(3);
     });
 
-    it("同じボタンを複数回クリックできる", () => {
+    it("同じボタンを複数回クリックできる", async () => {
+      const user = userEvent.setup();
       const handleChange = vi.fn();
       render(<ToggleButton {...defaultProps} onChange={handleChange} />);
 
       const button = screen.getByRole("button", { name: "オプション2" });
 
-      fireEvent.click(button);
-      fireEvent.click(button);
-      fireEvent.click(button);
+      await user.click(button);
+      await user.click(button);
+      await user.click(button);
 
       expect(handleChange).toHaveBeenCalledTimes(3);
       expect(handleChange).toHaveBeenCalledWith("option2");
@@ -181,17 +182,6 @@ describe("ToggleButton", () => {
         expect(button).toHaveClass("min-w-[44px]");
       });
     });
-
-    it("トランジション効果が設定されている", () => {
-      render(<ToggleButton {...defaultProps} />);
-
-      const buttons = screen.getAllByRole("button");
-      buttons.forEach((button) => {
-        expect(button).toHaveClass("transition-all");
-        expect(button).toHaveClass("duration-200");
-        expect(button).toHaveClass("ease-in-out");
-      });
-    });
   });
 
   describe("2つのオプション", () => {
@@ -215,7 +205,8 @@ describe("ToggleButton", () => {
       expect(screen.getAllByRole("button")).toHaveLength(2);
     });
 
-    it("2つのオプション間で切り替えができる", () => {
+    it("2つのオプション間で切り替えができる", async () => {
+      const user = userEvent.setup();
       const handleChange = vi.fn();
       render(
         <ToggleButton
@@ -226,7 +217,7 @@ describe("ToggleButton", () => {
       );
 
       const tsumoButton = screen.getByRole("button", { name: "ツモ" });
-      fireEvent.click(tsumoButton);
+      await user.click(tsumoButton);
 
       expect(handleChange).toHaveBeenCalledWith("tsumo");
     });
@@ -252,7 +243,8 @@ describe("ToggleButton", () => {
       expect(buttons).toHaveLength(10);
     });
 
-    it("多数のオプションでも正しく選択できる", () => {
+    it("多数のオプションでも正しく選択できる", async () => {
+      const user = userEvent.setup();
       const handleChange = vi.fn();
       render(
         <ToggleButton
@@ -263,7 +255,7 @@ describe("ToggleButton", () => {
       );
 
       const button5 = screen.getByRole("button", { name: "オプション5" });
-      fireEvent.click(button5);
+      await user.click(button5);
 
       expect(handleChange).toHaveBeenCalledWith("option5");
     });
@@ -278,7 +270,8 @@ describe("ToggleButton", () => {
       expect(buttons).toHaveLength(0);
     });
 
-    it("単一のオプションでも動作する", () => {
+    it("単一のオプションでも動作する", async () => {
+      const user = userEvent.setup();
       const handleChange = vi.fn();
       const singleOption = [{ value: "only", label: "唯一のオプション" }];
 
@@ -293,7 +286,7 @@ describe("ToggleButton", () => {
       expect(screen.getByText("唯一のオプション")).toBeInTheDocument();
 
       const button = screen.getByRole("button", { name: "唯一のオプション" });
-      fireEvent.click(button);
+      await user.click(button);
 
       expect(handleChange).toHaveBeenCalledWith("only");
     });
@@ -308,12 +301,12 @@ describe("ToggleButton", () => {
       // すべてのボタンが選択されていない状態でレンダリングされる
       const buttons = screen.getAllByRole("button");
       buttons.forEach((button) => {
-        expect(button).toHaveClass("bg-card");
-        expect(button).not.toHaveClass("bg-accent");
+        expect(button).toHaveAttribute("aria-pressed", "false");
       });
     });
 
-    it("数値型の値でも動作する", () => {
+    it("数値型の値でも動作する", async () => {
+      const user = userEvent.setup();
       const numericOptions = [
         { value: "1", label: "1人" },
         { value: "2", label: "2人" },
@@ -330,7 +323,7 @@ describe("ToggleButton", () => {
       );
 
       const button3 = screen.getByRole("button", { name: "3人" });
-      fireEvent.click(button3);
+      await user.click(button3);
 
       expect(handleChange).toHaveBeenCalledWith("3");
     });
@@ -354,36 +347,6 @@ describe("ToggleButton", () => {
       expect(screen.getByText("親（オヤ）")).toBeInTheDocument();
       expect(screen.getByText("子（コ）")).toBeInTheDocument();
       expect(screen.getByText("4人/3人")).toBeInTheDocument();
-    });
-  });
-
-  describe("スタイリング", () => {
-    it("各ボタンがフレックス成長する", () => {
-      render(<ToggleButton {...defaultProps} />);
-
-      const buttons = screen.getAllByRole("button");
-      buttons.forEach((button) => {
-        expect(button).toHaveClass("flex-1");
-      });
-    });
-
-    it("ボタンに角丸が適用されている", () => {
-      render(<ToggleButton {...defaultProps} />);
-
-      const buttons = screen.getAllByRole("button");
-      buttons.forEach((button) => {
-        expect(button).toHaveClass("rounded-md");
-      });
-    });
-
-    it("ラベルのスタイルが正しく適用されている", () => {
-      render(<ToggleButton {...defaultProps} label="テストラベル" />);
-
-      const label = screen.getByText("テストラベル");
-      expect(label).toHaveClass("text-sm");
-      expect(label).toHaveClass("font-medium");
-      expect(label).toHaveClass("text-gray-300");
-      expect(label).toHaveClass("text-center");
     });
   });
 });

@@ -48,6 +48,8 @@
     "**/*.test.tsx",
     "**/*.spec.ts",
     "**/*.spec.tsx",
-    "dist/**/*"
+    "dist/**/*",
+    "coverage/**/*",
+    "out/**/*"
   ]
 }

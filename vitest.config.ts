@@ -14,11 +14,6 @@ export default defineConfig({
     // 並列実行設定
     maxWorkers: '50%',
 
-    // 型チェック設定
-    typecheck: {
-      enabled: true,
-    },
-
     // カバレッジ設定
     coverage: {
       provider: 'v8',

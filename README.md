@@ -21,7 +21,7 @@
 
 ### 設定項目
 
-- **ゲームモード**: 4人麻雀 / 3人麻雀
+- **ゲームモード**: 4人麻雀 / 3人麻雀（北家折半）
 - **プレイヤー**: 親 / 子
 - **和了種別**: ロン / ツモ
 - **飜数**: 1〜13飜（クイックボタン + 入力欄）
@@ -80,9 +80,6 @@ pnpm lint
 # テスト実行
 pnpm test
 
-# テスト（ウォッチモード）
-pnpm test:watch
-
 # テストカバレッジ
 pnpm test:coverage
 ```
@@ -98,6 +95,8 @@ mahjong-score-app/
 ├── .vscode/                   # VSCode設定
 │   └── settings.json          # VSCode設定ファイル
 ├── node_modules/              # 依存パッケージ（Git除外）
+├── coverage/                  # テストカバレッジ（Git除外）
+├── out/                       # ビルド出力（Git除外）
 ├── src/
 │   ├── app/
 │   │   ├── favicon.ico        # ファビコン
@@ -117,6 +116,7 @@ mahjong-score-app/
 │   └── utils/                 # ユーティリティ関数
 │       └── scoreCalculator.ts # 点数計算ロジック
 ├── tests/
+│   ├── integration/           # 統合テスト
 │   ├── unit/                  # 単体テスト
 │   ├── sample.test.ts         # サンプルテスト
 │   ├── setup.ts               # テストセットアップ
@@ -137,6 +137,7 @@ mahjong-score-app/
 ├── tsconfig.json              # TypeScript設定
 ├── tsconfig.test.json         # テスト用TypeScript設定
 ├── tsconfig.tsbuildinfo       # TypeScriptビルド情報（Git除外）
+├── vitest.browser.config.ts   # Vitestブラウザモード設定
 └── vitest.config.ts           # Vitestテスト設定
 ```
 

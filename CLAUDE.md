@@ -352,7 +352,9 @@ mahjong-score-app/
 ├── .next/                     # Next.jsビルド出力（Git除外）
 ├── .vscode/                   # VSCode設定
 │   └── settings.json          # VSCode設定ファイル
+├── coverage/                  # テストカバレッジ（Git除外）
 ├── node_modules/              # 依存パッケージ（Git除外）
+├── out/                       # ビルド出力（Git除外）
 ├── src/
 │   ├── app/
 │   │   ├── favicon.ico        # ファビコン
@@ -372,6 +374,7 @@ mahjong-score-app/
 │   └── utils/                 # ユーティリティ関数
 │       └── scoreCalculator.ts # 点数計算ロジック
 ├── tests/
+│   ├── integration/           # 統合テスト
 │   ├── unit/                  # 単体テスト
 │   ├── sample.test.ts         # サンプルテスト
 │   ├── setup.ts               # テストセットアップ
@@ -392,6 +395,7 @@ mahjong-score-app/
 ├── tsconfig.json              # TypeScript設定
 ├── tsconfig.test.json         # テスト用TypeScript設定
 ├── tsconfig.tsbuildinfo       # TypeScriptビルド情報（Git除外）
+├── vitest.browser.config.ts   # Vitestブラウザモード設定
 └── vitest.config.ts           # Vitestテスト設定
 
 注意: すべてのコンポーネントは'use client'ディレクティブを使用
@@ -492,7 +496,7 @@ pnpm build
 ```bash
 pnpm type-check  # TypeScript型チェック
 pnpm lint        # ESLintによるコード品質チェック
-pnpm test        # Vitestによる単体テスト実行
+pnpm test        # Vitest実行
 ```
 
 **テスト環境修正後：**

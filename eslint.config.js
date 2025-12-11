@@ -422,6 +422,8 @@ export default tseslint.config(
             "TSTypeAliasDeclaration", // type
             // exportされた関数
             "ExportNamedDeclaration > FunctionDeclaration",
+            // exportされた定数（JSDocは親のExportNamedDeclarationに付与されるためhas句で指定）
+            "ExportNamedDeclaration:has(VariableDeclaration)",
           ],
         },
       ],

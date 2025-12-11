@@ -9,6 +9,7 @@ import vitest from "@vitest/eslint-plugin";
 import testingLibrary from "eslint-plugin-testing-library";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import unusedImports from "eslint-plugin-unused-imports";
+import jsdoc from "eslint-plugin-jsdoc";
 import globals from "globals";
 import importPlugin from "eslint-plugin-import";
 
@@ -380,7 +381,76 @@ export default tseslint.config(
   },
 
   // ========================================================
-  // 7. JavaScript/JSXファイル専用設定（型チェック無効化）
+  // 7. JSDoc/TSDoc設定（TypeScriptファイル専用）
+  // ========================================================
+  {
+    name: "jsdoc-rules",
+    files: ["**/*.ts", "**/*.tsx"],
+    plugins: {
+      jsdoc,
+    },
+    settings: {
+      jsdoc: {
+        mode: "typescript", // TypeScript/TSDocモード
+        tagNamePreference: {
+          returns: "returns", // TSDocスタイル
+        },
+      },
+    },
+    rules: {
+      // ----------------------------------------------------
+      // JSDoc構文チェック（TSDocスタイル）
+      // ----------------------------------------------------
+      "jsdoc/check-syntax": "warn", // TSDoc構文の検証
+
+      // ----------------------------------------------------
+      // ドキュメント存在チェック（重要な場所のみ）
+      // ----------------------------------------------------
+      "jsdoc/require-jsdoc": [
+        "warn",
+        {
+          publicOnly: false,
+          require: {
+            FunctionDeclaration: true, // 通常の関数宣言
+            ClassDeclaration: true, // クラス
+            MethodDefinition: false, // メソッド（任意）
+            ArrowFunctionExpression: false, // アロー関数（任意）
+          },
+          contexts: [
+            // TypeScript固有の型
+            "TSInterfaceDeclaration", // interface
+            "TSTypeAliasDeclaration", // type
+            // exportされた関数
+            "ExportNamedDeclaration > FunctionDeclaration",
+          ],
+        },
+      ],
+
+      // ----------------------------------------------------
+      // パラメータと戻り値の記述（推奨だが強制しない）
+      // ----------------------------------------------------
+      "jsdoc/require-param": "off", // パラメータ記述は任意
+      "jsdoc/require-returns": "off", // 戻り値記述は任意
+
+      // ----------------------------------------------------
+      // TSDoc追加検証
+      // ----------------------------------------------------
+      "jsdoc/check-tag-names": [
+        "warn",
+        {
+          typed: true,
+          definedTags: ["remarks", "example", "see", "public", "internal"], // TSDocタグを許可
+        },
+      ], // 正しいタグ名
+      "jsdoc/check-types": "off", // TypeScriptの型システムを使用
+      "jsdoc/no-types": "warn", // TSDoc形式では型注釈を使用しない
+      "jsdoc/require-param-type": "off", // TypeScriptの型を使用
+      "jsdoc/require-returns-type": "off", // TypeScriptの型を使用
+    },
+  },
+
+  // ========================================================
+  // 8. JavaScript/JSXファイル専用設定（型チェック無効化）
   // ========================================================
   {
     name: "javascript-overrides",
@@ -400,7 +470,7 @@ export default tseslint.config(
   },
 
   // ========================================================
-  // 8. 型定義ファイル専用設定
+  // 9. 型定義ファイル専用設定
   // ========================================================
   {
     name: "type-definition-files",
@@ -412,7 +482,7 @@ export default tseslint.config(
   },
 
   // ========================================================
-  // 9. Next.js専用ファイル（デフォルトエクスポート許可）
+  // 10. Next.js専用ファイル（デフォルトエクスポート許可）
   // ========================================================
   {
     name: "nextjs-special-files",
@@ -437,11 +507,12 @@ export default tseslint.config(
       "import/no-default-export": "off",
       "import/prefer-default-export": "off",
       "@typescript-eslint/no-explicit-any": "off",
+      "jsdoc/require-jsdoc": "off", // Next.js特殊ファイルはドキュメント不要
     },
   },
 
   // ========================================================
-  // 10. Storybookファイル
+  // 11. Storybookファイル
   // ========================================================
   {
     name: "storybook-files",
@@ -453,11 +524,12 @@ export default tseslint.config(
     rules: {
       "import/no-default-export": "off",
       "@typescript-eslint/naming-convention": "off",
+      "jsdoc/require-jsdoc": "off", // Storybookファイルはドキュメント不要
     },
   },
 
   // ========================================================
-  // 11. テスト環境
+  // 12. テスト環境
   // ========================================================
   {
     name: "test-environment",
@@ -500,11 +572,12 @@ export default tseslint.config(
       "no-console": "off",
       "react/jsx-no-bind": "off",
       "import/no-default-export": "off",
+      "jsdoc/require-jsdoc": "off", // テストファイルはドキュメント不要
     },
   },
 
   // ========================================================
-  // 12. Browser Mode テスト専用設定
+  // 13. Browser Mode テスト専用設定
   // ========================================================
   {
     name: "browser-mode-tests",
@@ -516,7 +589,7 @@ export default tseslint.config(
   },
 
   // ========================================================
-  // 13. Prettier
+  // 14. Prettier
   // ========================================================
   eslintConfigPrettier
 );

@@ -2,6 +2,20 @@
 
 import type { ToggleButtonProps } from "@/types";
 
+/**
+ * 複数の選択肢から1つを選ぶトグルボタンコンポーネント
+ *
+ * @remarks
+ * ゲームモード（4人/3人麻雀）、プレイヤータイプ（親/子）、和了種別（ロン/ツモ）の選択に使用します。
+ * ジェネリック型パラメータ `T` により、値の型安全性を確保しています。
+ *
+ * @template T - 選択肢の値の型（string型を継承）
+ * @param props - コンポーネントのプロパティ
+ * @param props.options - 選択肢の配列
+ * @param props.value - 現在選択されている値
+ * @param props.onChange - 値変更時のコールバック関数
+ * @param props.label - ボタングループのラベル（オプション）
+ */
 export function ToggleButton<T extends string>({
   options,
   value,

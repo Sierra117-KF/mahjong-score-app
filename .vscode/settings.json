@@ -1,3 +1,6 @@
 {
-  "css.lint.unknownAtRules": "ignore"
+  "css.lint.unknownAtRules": "ignore",
+  "eslint.validate": ["typescript"],
+  "eslint.useFlatConfig": true,
+  "eslint.run": "onType"
 }

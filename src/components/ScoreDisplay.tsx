@@ -4,6 +4,19 @@ import { UI_TEXT } from "@/lib/constants";
 import type { ScoreDisplayProps } from "@/types";
 import { formatScore } from "@/utils/scoreCalculator";
 
+/**
+ * 麻雀の点数計算結果を表示するコンポーネント
+ *
+ * @remarks
+ * 飜数・符数、点数ランク（満貫、跳満など）、総得点を表示します。
+ * ロン和了時は放銃者の支払い点数、ツモ和了時は各プレイヤーの支払い点数を表示します。
+ *
+ * @param props - コンポーネントのプロパティ
+ * @param props.han - 飜数
+ * @param props.fu - 符数
+ * @param props.result - 点数計算結果オブジェクト
+ * @param props.winType - 和了種別（"ron" または "tsumo"）
+ */
 export function ScoreDisplay({ han, fu, result, winType }: ScoreDisplayProps) {
   const hasRankName = result.rankName.trim() !== "";
   const ronPayment = result.ronPayment ?? null;

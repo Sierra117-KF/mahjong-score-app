@@ -4,6 +4,11 @@ import { DEFAULT_VALUES } from "@/lib/constants";
 import type { GameMode, PlayerType, WinType } from "@/types";
 import { calculateScore } from "@/utils/scoreCalculator";
 
+/**
+ * 麻雀の入力状態と計算結果を管理するカスタムフック。
+ * デフォルト値を基に各種状態と計算結果、リセット操作を提供する。
+ * @returns ゲーム設定の状態・更新関数・計算結果・リセット関数をまとめたオブジェクト
+ */
 export const useMahjongGame = () => {
   const [gameMode, setGameMode] = useState<GameMode>(DEFAULT_VALUES.gameMode);
   const [playerType, setPlayerType] = useState<PlayerType>(

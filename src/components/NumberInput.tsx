@@ -5,6 +5,20 @@ import { useEffect, useRef, useState } from "react";
 import { KEYBOARD_KEYS, UI_TEXT } from "@/lib/constants";
 import type { NumberInputProps } from "@/types";
 
+/**
+ * 数値入力用のカスタムドロップダウンコンポーネント
+ *
+ * @remarks
+ * 符数・本場数などの数値選択に使用します。
+ * ドロップダウンは上方向に開き、クイックアクセスボタン（飜数用）のオプション表示もサポートします。
+ *
+ * @param props - コンポーネントのプロパティ
+ * @param props.label - 入力欄のラベル
+ * @param props.value - 現在選択されている値
+ * @param props.onChange - 値変更時のコールバック関数
+ * @param props.quickButtons - クイックアクセスボタン用の数値配列（オプション）
+ * @param props.selectOptions - ドロップダウン選択肢の配列
+ */
 export function NumberInput({
   label,
   value,

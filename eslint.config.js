@@ -545,6 +545,16 @@ export default tseslint.config(
       vitest,
       "testing-library": testingLibrary,
     },
+    settings: {
+      // テストファイル専用のTypeScript設定を参照
+      "import/resolver": {
+        typescript: {
+          alwaysTryTypes: true,
+          project: "./tsconfig.test.json",
+        },
+        node: true,
+      },
+    },
     rules: {
       ...vitest.configs.recommended.rules,
       ...testingLibrary.configs["flat/react"].rules,

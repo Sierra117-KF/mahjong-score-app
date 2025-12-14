@@ -515,24 +515,7 @@ export default defineConfig(
   },
 
   // ========================================================
-  // 11. Storybookファイル
-  // ========================================================
-  {
-    name: "storybook-files",
-    files: [
-      "**/*.stories.{ts,tsx}",
-      "**/*.story.{ts,tsx}",
-      ".storybook/**/*.{ts,tsx}",
-    ],
-    rules: {
-      "import/no-default-export": "off",
-      "@typescript-eslint/naming-convention": "off",
-      "jsdoc/require-jsdoc": "off", // Storybookファイルはドキュメント不要
-    },
-  },
-
-  // ========================================================
-  // 12. テスト環境
+  // 11. テスト環境
   // ========================================================
   {
     name: "test-environment",
@@ -590,7 +573,7 @@ export default defineConfig(
   },
 
   // ========================================================
-  // 13. Browser Mode テスト専用設定
+  // 12. Browser Mode テスト専用設定
   // ========================================================
   {
     name: "browser-mode-tests",
@@ -602,7 +585,7 @@ export default defineConfig(
   },
 
   // ========================================================
-  // 14. Prettier
+  // 13. Prettier
   // ========================================================
   eslintConfigPrettier
 );

@@ -340,15 +340,6 @@ export default defineConfig(
         },
       ],
       "react/destructuring-assignment": ["error", "always"],
-      "react/jsx-handler-names": [
-        "error",
-        {
-          eventHandlerPrefix: "handle",
-          eventHandlerPropPrefix: "on",
-          checkLocalVariables: true,
-          checkInlineFunction: false,
-        },
-      ],
 
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": [
